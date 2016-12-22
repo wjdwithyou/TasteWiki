@@ -1,0 +1,11 @@
+.history_list_table{width:100%}
+
+.history_list_td{
+	padding: 5px;
+	text-align: center;
+}
+
+.history_list_description{
+	padding: 5px;
+	text-align: left;
+}

@@ -1,0 +1,113 @@
+.notice{
+	color: #FF9900;
+	background: #FFFFFF;
+	border: 1px solid #FF9900;
+	border-radius: 8px;
+	padding: 8px;
+}
+
+button{
+	width: 64px;
+	color: #FF9900;
+	background: #FFFFFF;
+	border: 1px solid #FF9900;
+	border-radius: 16px;
+}
+
+.review_wrap table{width:100%}
+.review_wrap table td{padding:8px}
+
+#my_review{
+	border: 2px solid #FF9900;
+	border-radius: 16px;
+}
+
+#review_content{width:500px}
+
+.review_list table{border-bottom: 1px solid #CCCCCC}
+
+.review_img{
+	display: inline-block;
+	width: 96px;
+    height: 96px;
+    background: #FFFFFF;
+    border: 1px solid #FF9900;
+    border-radius: 8px;
+    padding: 2px;
+}
+
+.review_img img{
+	width: 100%;
+	height: 100%;
+	border-radius: 8px;
+}
+
+
+
+.filebox{
+	padding-bottom: 4px;
+}
+
+.filebox label{
+	width: 96px;
+	height: 32px;
+	color: #FF9900;
+	background: #FFFFFF;
+	border: 1px solid #FF9900;
+	border-radius: 32px;
+	padding: 4px;
+	vertical-align: middle;
+	text-align: center;
+	cursor: pointer;
+}
+
+.filebox input[type="file"]{
+	display: none;
+}
+
+.filebox input[type="text"]{
+	width: 192px;
+	height: 32px;
+	background: #CFCFCF;
+	border: 1px solid #FF9900;
+	border-radius: 16px;
+	padding: 4px;
+	vertical-align: middle;
+}
+
+.filebox .upload_display{
+	vertical-align: middle;
+}
+
+.filebox .upload_thumb_wrap{
+	display: inline-block;
+	width: 64px;
+	height: 64px;
+	background: #FFFFFF;
+	border: 1px solid #FF9900;
+	border-radius: 4px;
+	padding: 2px;
+	vertical-align: middle;
+}
+
+.filebox .upload_display img{
+	width: 100%;
+	height: 100%;
+	border-radius: 4px;
+}
+
+@media(min-width: 768px){
+	.filebox .upload_display{
+		display: inline-block;
+		margin-right: 4px;
+		margin-bottom: 0
+	}
+}
+
+@media(max-width: 767px){
+	.filebox .upload_display{
+		display: block;
+		margin-right: 0;
+		margin-bottom: 4px;
+	}
+}

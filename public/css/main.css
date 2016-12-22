@@ -1,0 +1,70 @@
+@charset "utf-8";
+
+/*
+	For use google map,
+	all the parents of #map_canvas should have 'height' properties.
+*/
+
+html,body,.wrap,.contents,.content,#map_canvas{height:100%}
+
+nav, aside{display: none;}
+
+.contents{
+	display: flex;
+	flex-direction: row;
+}
+
+.content{padding: 0}
+
+#map_canvas{
+	height: 100%;
+	width: 100%;
+}
+
+#map_canvas img[src^='https://s3-ap-northeast-2.amazonaws.com/locawiki/spot/']{border-radius:37px;-webkit-border-radius:37px;-moz-border-radius:37px}
+
+
+
+/* popup background */
+#popup_background{
+	position: fixed;
+	z-index: 10000;
+	width: 100%;
+	height: 100%;
+	top: 40px;
+	left: 0px;
+	background-color: #CCCCCC;
+    opacity: 0.64;
+}
+
+/* popup cluster */
+
+#popup_cluster{
+	position: fixed;
+	z-index: 10001;
+	width: 256px;
+	height: auto;
+	top: 25%;
+	left: 37.5%;
+	background-color: #FFFFFF;
+	border: 4px solid #FF9900;
+	border-radius: 16px;
+	margin: 0 auto;
+	padding: 16px
+}
+
+.popup_cluster_top{
+	border-bottom: 2px solid #FF9900
+}
+
+.popup_cluster_close{
+	position: absolute;
+	z-index: 5;
+	top: 4px;
+	right: 12px;
+	font-size: 32px
+}
+
+.popup_cluster_table td{
+	padding: 8px
+}

@@ -1,0 +1,28 @@
+.cm_btn{
+	width: 50px;
+	color: #FF9900;
+	background-color: #FFFFFF;
+	border: 1px solid #FF9900;
+	border-radius: 25px
+}
+
+.reply_write_table{width:100%}
+
+.reply_write_td{
+	padding: 5px;
+	text-align: center;
+}
+
+.cm_reply_content{width:100%}
+
+.reply_list_table{width:100%}
+
+.reply_list_td{
+	padding: 5px;
+	text-align: center;
+}
+
+.reply_list_content{
+	padding: 5px;
+	text-align: left;
+}
