@@ -201,4 +201,16 @@ class MemberModel{
 		else
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
 	}
+	
+	function getTempCode($acc_idx){
+		if ($_ = checkParam(func_get_args()))
+			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		
+		$result = DB::select('select temp_code from member where idx=?', array($acc_idx));
+		
+		if (count($result) > 0)
+			return array('code' => 200, 'msg' => 'success', 'data' => $result[0]->temp_code);
+		else
+			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
+	}
 }

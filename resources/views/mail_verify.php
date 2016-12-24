@@ -15,6 +15,7 @@
 						<h1>메일 인증</h1>
 					</div>
 					<div class="core">
+						<input type="hidden" id="email" value="<?=$mail?>"/>
 						<table>
 							<tr>
 								<td colspan="2"><span id="desc_text"></span></td>
@@ -25,8 +26,8 @@
 							</tr>
 							<tr>
 								<td class="ta_c">
-									<button type="button" class="tw_btn48">확인</button>
-									<button type="button" class="tw_btn48">취소</button>
+									<button type="button" class="tw_btn48" onclick="checkVerify();">확인</button>
+									<button type="button" class="tw_btn48" onclick="history.back();">취소</button>
 								</td>
 								<td></td>
 							</tr>

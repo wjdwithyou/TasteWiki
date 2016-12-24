@@ -42,7 +42,7 @@ $(document).ready(function(){
 				
 				$("#email2").val(email_arr[1]);
 				
-				if (data.email_chk){
+				if (data.email_chk == 1){
 					$("#verify_icon").append("<i class='fa fa-check green'></i>");
 					$("#verify_msg").addClass("green");
 					$("#verify_msg").text("인증됨");
@@ -97,7 +97,9 @@ $(document).ready(function(){
 });
 
 function verifyEmail(){
-	location.href = adr_ctr + 'Account/mailVerifyIndex';
+	var email = $('#email1').val() + '@' + $('#email2').val();
+	
+	location.href = adr_ctr + 'Account/mailVerifyIndex?mail=' + email;
 }
 
 function modifyJust(){

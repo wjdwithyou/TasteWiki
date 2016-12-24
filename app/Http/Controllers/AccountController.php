@@ -338,8 +338,10 @@ class AccountController extends Controller{
 			die();
 		}
 		
+		$email = Request::input('mail');
+		
 		$page = "mail_verify";
-		return view($page, array('page' => $page));
+		return view($page, array('page' => $page, 'mail' => $email));
 	}
 	
 	public function sendVerify(){
@@ -353,10 +355,14 @@ class AccountController extends Controller{
 			die();
 		}
 		
+		header('Content-Type: application/json');
+		
 		$mbModel = new MemberModel();
 		
 		$acc_idx = $_SESSION['idx'];
 		$nickname = $_SESSION['nickname'];
+		
+		$email = Request::input('mail');
 		
 		$len = 5;
 		$code = "";
@@ -377,14 +383,6 @@ class AccountController extends Controller{
 			return;
 		}
 		
-		$result_getAccountInfo = $mbModel->getAccountInfo($acc_idx);
-		
-		if ($result_getAccountInfo['code'] != 200){
-			echo json_encode($result_getAccountInfo);
-			return;
-		}
-		
-		$email = $result_getAccountInfo['data']->email;
 		$data = (object)array('code' => $code, 'nickname' => $nickname, 'email' => $email);
 		
 		Mail::send(
@@ -399,6 +397,46 @@ class AccountController extends Controller{
 		
 		header('Content-Type: application/json');
 		echo json_encode(array('code' => 200, 'msg' => 'success'));
+	}
+	
+	public function checkVerify(){
+		if (Common::loginStateCheck() != 1){
+			header("Location: http://".$_SERVER['HTTP_HOST']);
+			die();
+		}
+		
+		if (!isset($_SERVER['HTTP_REFERER'])){
+			header("Location: http://".$_SERVER['HTTP_HOST']);
+			die();
+		}
+		
+		header('Content-Type: application/json');
+		
+		$mbModel = new MemberModel();
+		
+		$acc_idx = $_SESSION['idx'];
+		
+		$code = Request::input('code');
+		
+		if ($code == ""){
+			echo json_encode(array('code' => 240, 'msg' => '코드를 입력해주세요.'));
+			return;
+		}
+		
+		$result_getTempCode = $mbModel->result_getTempCode($acc_idx);
+		
+		if ($result_getTempCode['code'] != 200){
+			echo json_encode($result_getTempCode);
+			return;
+		}
+		
+		if ($result_getTempCode['data'] != $code){
+			echo json_encode(array('code' => 240, 'msg' => '인증 코드가 일치하지 않습니다.'));
+			return;
+		}
+		
+		// after::
+		
 	}
 	
 	public function logout(){

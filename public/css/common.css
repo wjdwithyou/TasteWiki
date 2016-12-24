@@ -22,7 +22,7 @@ select{border:1px solid #FF9900}
 
 input{border:1px solid #FF9900}
 
-input[type=text]{height:24px}
+input[type=text], input[type=password]{height:24px}
 
 
 
