@@ -423,7 +423,7 @@ class AccountController extends Controller{
 			return;
 		}
 		
-		$result_getTempCode = $mbModel->result_getTempCode($acc_idx);
+		$result_getTempCode = $mbModel->getTempCode($acc_idx);
 		
 		if ($result_getTempCode['code'] != 200){
 			echo json_encode($result_getTempCode);
