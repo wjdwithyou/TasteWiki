@@ -44,4 +44,14 @@ class MainController extends Controller{
 		$page = 'category_selector';
 		return view($page, array(/*'page' => $page, */'purposeList' => $purposeList, 'kindList' => $kindList));
 	}
+	
+	public function terms(){
+		$page = 'terms';
+		return view($page, array('page' => $page));
+	}
+	
+	public function privacyPolicy(){
+		$page = 'privacy_policy';
+		return view($page, array('page' => $page));
+	}
 }

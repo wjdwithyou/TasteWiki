@@ -14,7 +14,7 @@
 					<div class="top">
 						<h1>...</h1>
 					</div>
-					<div>
+					<div class="core">
 					</div>
 				</div>
 				<aside></aside>

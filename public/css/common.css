@@ -95,9 +95,18 @@ header{
 }
 
 footer{
-	height: 64px;
+	height: 32px;
+	background: #CCC;
 	border-top: 2px solid #000;
-	padding: 8px;
+}
+
+.footer_wrap div{
+	height: 30px;
+	line-height: 30px;
+}
+
+.footer_wrap span{
+	margin: 4px;
 }
 
 
