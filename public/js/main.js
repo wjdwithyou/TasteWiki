@@ -35,8 +35,8 @@ window.onload = function(){
 	
 	var option = {
 			center: new google.maps.LatLng((limit.n + limit.s) / 2, (limit.e + limit.w) / 2),
-			zoom: 14,
-			minZoom: 14,
+			zoom: 13,
+			minZoom: 13,
 			scrollwheel: true,
 			//zoomControl: false,
 			//rotateControl: false,

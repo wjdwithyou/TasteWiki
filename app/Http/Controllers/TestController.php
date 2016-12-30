@@ -24,7 +24,7 @@ class TestController extends Controller{
 		return $spot_idx;
 	}
 	
-	// for create empty cluster	
+	// for create empty cluster
 	// use: .../Test/createClusterM?lat=xx.xxxxx&lng=xx.xxxxx
 	public function createClusterM(){
 		if (Common::managerCheck() != 1){
