@@ -398,6 +398,11 @@ class AccountController extends Controller{
 	}
 	
 	public function mailVerifyIndex(){
+		// temp
+		header("Location: http://".$_SERVER['HTTP_HOST']);
+		die();
+		
+		/*
 		if (Common::loginStateCheck() != 1){
 			header("Location: http://".$_SERVER['HTTP_HOST']);
 			die();
@@ -412,6 +417,7 @@ class AccountController extends Controller{
 		
 		$page = "mail_verify";
 		return view($page, array('page' => $page, 'mail' => $email));
+		*/
 	}
 	
 	public function sendVerify(){

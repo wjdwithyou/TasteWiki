@@ -103,9 +103,10 @@ $(document).ready(function(){
 });
 
 function verifyEmail(){
-	var email = $('#email1').val() + '@' + $('#email2').val();
-	
-	location.href = adr_ctr + 'Account/mailVerifyIndex?mail=' + email;
+	alert("준비 중입니다!");
+//	var email = $('#email1').val() + '@' + $('#email2').val();
+//	
+//	location.href = adr_ctr + 'Account/mailVerifyIndex?mail=' + email;
 }
 
 function modifyJust(){
