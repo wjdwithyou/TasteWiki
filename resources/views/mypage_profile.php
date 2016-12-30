@@ -69,6 +69,10 @@
 								</td>
 							</tr>
 							<tr>
+								<td class="fw_b">이름</td>
+								<td><input type="text" id="name"/></td>
+							</tr>
+							<tr>
 								<td class="fw_b">성별</td>
 								<td>
 									<input type="radio" name="sex" value="man"/>남자&nbsp;&nbsp;
@@ -83,6 +87,13 @@
 									<input type="radio" name="age" value="20m"/>20대 중반&nbsp;&nbsp;
 									<input type="radio" name="age" value="20l"/>20대 후반&nbsp;&nbsp;
 									<input type="radio" name="age" value="30"/>30대 이상&nbsp;&nbsp;
+								</td>
+							</tr>
+							<tr>
+								<td class="fw_b">정보성 메일 수신</td>
+								<td>
+									<input type="radio" name="ad" value="true"/>수신&nbsp;&nbsp;
+									<input type="radio" name="ad" value="false"/>수신안함&nbsp;&nbsp;
 								</td>
 							</tr>
 							<tr class="ta_c">

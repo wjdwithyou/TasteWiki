@@ -6,10 +6,11 @@ use Request;
 use Mail;
 
 class AccountController extends Controller{
-	private function checkProfileInfo($kind, $id, $pw, $nickname/*, $email, $sex, $age*/){
+	private function checkProfileInfo($kind, $ad_chk, $id, $pw, $nickname/*, $email, $sex, $age*/){
 		$pattern_arr = array();
 		
 		array_push($pattern_arr, "/^(naver|katalk|facebook|just)$/");	// kind
+		array_push($pattern_arr, "/^(true|false)$/");					// ad_chk
 		array_push($pattern_arr, "/^[[:alnum:]]{5,13}$/");				// id
 		array_push($pattern_arr, "/^[0-9a-zA-Z!@#$%^&*]{8,15}$/");		// pw
 		array_push($pattern_arr, "/^[0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/u");	// nickname
@@ -115,6 +116,7 @@ class AccountController extends Controller{
 			}
 	}
 	*/
+	
 	public function naverCallback(){
 		if (!empty(Request::input('error'))){
 			$data = array(
@@ -179,9 +181,30 @@ class AccountController extends Controller{
 							// array(result, kind, no)
 	}
 	
+	public function agreeTerms(){
+		if (!isset($_SERVER['HTTP_REFERER'])){
+			header("Location: http://".$_SERVER['HTTP_HOST']);
+			die();
+		}
+		
+		$kind = Request::input('kind');
+		$no = Request::input('no');
+		$prev = Request::input('prev');
+		
+		$page = "join_agree";
+		return view($page, array('page' => $page, 'kind' => $kind, 'no' => $no, 'prev' => $prev));
+	}
+	
 	public function joinIndex(){
+		if (!isset($_SERVER['HTTP_REFERER'])){
+			header("Location: http://".$_SERVER['HTTP_HOST']);
+			die();
+		}
+		
+		$ad_chk = Request::input('ad');
+		
 		$page = "join";
-		return view($page, array('page' => $page));
+		return view($page, array('page' => $page, 'ad' => $ad_chk));
 	}
 	
 	public function join(){
@@ -195,25 +218,31 @@ class AccountController extends Controller{
 		$mbModel = new MemberModel();
 		
 		$kind = Request::input('kind');
+		$ad_chk = Request::input('ad');
 		
 		if ($kind == 'just'){
 			$id = Request::input('id');
 			$pw = Request::input('pw');
+			$nickname = Request::input('nickname');
 		}
-		else
+		else{
 			$id = $pw = Request::input('no');
+			$nickname = strtoupper(substr($kind, 0, 1)).substr($id, -7);
+		}
 		
-		$nickname = Request::input('nickname');
 		$email = Request::input('email');
+		$name = Request::input('name');
 		$sex = Request::input('sex');
 		$age = Request::input('age');
 		
 		$img = Request::file('img');
 		
-		if (!$this::checkProfileInfo($kind, $id, $pw, $nickname/*, $email, $sex, $age*/))
+		if (!$this::checkProfileInfo($kind, $ad_chk, $id, $pw, $nickname/*, $email, $name, $sex, $age*/))
 			return;
 		
-		$result = $mbModel->create($kind, $id, $pw, $nickname, $email, $sex, $age, $img);
+		$ad_chk = ($ad_chk == 'true')? 1: 0;
+		
+		$result = $mbModel->create($kind, $ad_chk, $id, $pw, $nickname, $email, $name, $sex, $age, $img);
 		
 		echo json_encode($result);
 	}
@@ -226,6 +255,43 @@ class AccountController extends Controller{
 		
 		$page = "social_additional";
 		return view($page, array('page' => $page, 'kind' => $kind, 'no' => $no, 'prev' => $prev));
+	}
+	
+	public function checkAgree(){
+		if (!isset($_SERVER['HTTP_REFERER'])){
+			header("Location: http://".$_SERVER['HTTP_HOST']);
+			die();
+		}
+		
+		header('Content-Type: application/json');
+		
+		$terms_chk = Request::input('terms');
+		$pp_chk = Request::input('pp');
+		
+		if ($terms_chk === 'true' && $pp_chk === 'true')
+			echo json_encode(array('code' => 200, 'msg' => 'success'));
+		else
+			echo json_encode(array('code' => 240, 'msg' => '이용약관과 개인정보 수집 및 이용에 대해 모두 동의해주세요.'));
+	}
+	
+	public function checkAd(){
+		if (!isset($_SERVER['HTTP_REFERER'])){
+			header("Location: http://".$_SERVER['HTTP_HOST']);
+			die();
+		}
+		
+		header('Content-Type: application/json');
+		
+		$ad_chk = Request::input('ad');
+		
+		$pattern = "/^(true|false)$/";
+		
+		if (!preg_match($pattern, $ad_chk)){
+			echo json_encode(array('code' => 400, 'msg' => 'Invalid input'));
+			return;
+		}
+		
+		echo json_encode(array('code' => 200, 'msg' => 'success'));
 	}
 	
 	public function checkId(){
@@ -284,16 +350,20 @@ class AccountController extends Controller{
 		$pw = Request::input('pw', '');
 		$nickname = Request::input('nickname');
 		$email = Request::input('email');
+		$name = Request::input('name');
 		$sex = Request::input('sex');
 		$age = Request::input('age');
+		$ad = Request::input('ad');
 		$prev_img = Request::input('prev_img');
 		
 		$img = Request::file('img');
 		
-		if (!$this::checkProfileInfo('just', 'availableID', $pw, $nickname/*, $email, $sex, $age*/))
+		if (!$this::checkProfileInfo('just', $ad, 'availableID', $pw, $nickname/*, $email, $name, $sex, $age*/))
 			return;
 		
-		$result = $mbModel->update($acc_idx, $pw, $nickname, $email, $sex, $age, $img, $prev_img);
+		$ad = ($ad == 'true')? 1: 0;
+		
+		$result = $mbModel->update($acc_idx, $ad, $pw, $nickname, $email, $name, $sex, $age, $img, $prev_img);
 		
 		if ($result['code'] == 200){
 			if (session_id() == '')

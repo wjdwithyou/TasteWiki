@@ -53,8 +53,14 @@ $(document).ready(function(){
 					$("#verify_msg").text("인증되지 않음");
 				}
 				
+				$('#name').val(data.name);
+				
 				$('input[name=sex]').filter('input[value=' + data.sex + ']').attr('checked', 'checked');
 				$('input[name=age]').filter('input[value=' + data.age + ']').attr('checked', 'checked');
+				
+				data.ad_chk = (data.ad_chk == 1)? true: false;
+				
+				$('input[name=ad]').filter('input[value=' + data.ad_chk + ']').attr('checked', 'checked');
 			}
 			else{
 				alert("프로필을 수정할 수 없습니다.\n관리자에게 문의하세요.");
@@ -109,8 +115,10 @@ function modifyJust(){
 		var pw = $("#pw").val();
 		var nickname = $("#nickname").val();
 		var email = $("#email1").val() + '@' + $("#email2").val();
+		var name = $("#name").val();
 		var sex = $("input[name=sex]:checked").val();
 		var age = $("input[name=age]:checked").val();
+		var ad = $("input[name=ad]:checked").val();
 		
 		var imgFile = $("#profile_file");
 		var img = "";
@@ -123,9 +131,11 @@ function modifyJust(){
 		data.append("pw", pw);
 		data.append("nickname", nickname);
 		data.append("email", email);
-		data.append("img", img);
+		data.append("name", name);
 		data.append("sex", sex);
 		data.append("age", age);
+		data.append("ad", ad);
+		data.append("img", img);
 		data.append("prev_img", prev_img);
 		
 		$.ajax({
@@ -163,8 +173,10 @@ function modifySocial(){
 	else{
 		var nickname = $('#nickname').val();
 		var email = $('#email1').val() + '@' + $('#email2').val();
+		var name = $('#name').val();
 		var sex = $('input[name=sex]:checked').val();
 		var age = $('input[name=age]:checked').val();
+		var ad = $('input[name=ad]:checked').val();
 		
 		var imgFile = $('#profile_file');
 		var img = '';
@@ -176,9 +188,11 @@ function modifySocial(){
 		
 		data.append('nickname', nickname);
 		data.append('email', email);
-		data.append('img', img);
+		data.append('name', name);
 		data.append('sex', sex);
 		data.append('age', age);
+		data.append('ad', ad);
+		data.append('img', img);
 		data.append('prev_img', prev_img);
 	}
 	

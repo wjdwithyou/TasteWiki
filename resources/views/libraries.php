@@ -112,7 +112,7 @@ $.ajaxSetup({
 <script type="text/javascript" src="<?=$adr_js?>common.js"></script>
 
 <!-- Account 관련 css, js ; Account 관련 페이지일 때 사용-->
-<?php if ($page == 'login' || $page == 'join' || $page == 'social_additional' || $page == 'mypage_profile') :?>
+<?php if ($page == 'login' || $page == 'join' || $page == 'mypage_profile') :?>
 <link rel="stylesheet" href="<?=$adr_css?>account_common.css">
 <script type="text/javascript" src="<?=$adr_js?>account_common.js"></script>
 <?php endif;?>

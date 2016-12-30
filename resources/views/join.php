@@ -22,6 +22,7 @@
 					</div>
 					<div>
 						<input type="hidden" id="kind" value="just"/>
+						<input type="hidden" id="ad_chk" value="<?=$ad?>"/>
 						<table>
 							<tr>
 								<td colspan="2"><span class="red">*</span> 표시는 필수 입력 항목입니다.</td>
@@ -64,9 +65,13 @@
 										<option value="gmail.com">gmail.com</option>
 										<option value="nate.com">nate.com</option>
 										<option value="naver.com">naver.com</option>
-										<option value="">직접입력</option>
+										<option value="" selected>직접입력</option>
 									</select>
 								</td>
+							</tr>
+							<tr>
+								<td class="fw_b">이름</td>
+								<td><input type="text" id="name"/></td>
 							</tr>
 							<tr>
 								<td class="fw_b">성별</td>

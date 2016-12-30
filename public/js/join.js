@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	checkAd();
+	
 	$("#id_msg").addClass("red");
 	$("#id_msg").text("미입력");
 	
@@ -30,21 +32,18 @@ $(document).ready(function(){
 });
 
 function justJoin(){
-	var sex = $("input[name=sex]:checked").val();
-	var age = $("input[name=age]:checked").val();
-	
 	if ($("#id_msg").text() != "사용가능" || $("#pw_msg").text() != "사용가능" || $("#pwc_msg").text() != "일치" || $("#nickname_msg").text() != "사용가능")
 		alert("입력한 정보를 다시 확인해 주세요.");
-//	else if (sex === undefined)
-//		alert("성별을 입력해 주세요.");
-//	else if (age === undefined)
-//		alert("연령대를 입력해 주세요.");
 	else{
 		var kind = 'just';
+		var ad_chk = $("#ad_chk").val();
 		var id = $("#id").val();
 		var pw = $("#pw").val();
 		var nickname = $("#nickname").val();
 		var email = $('#email1').val() + '@' + $('#email2').val();
+		var name = $("#name").val();
+		var sex = $("input[name=sex]:checked").val();
+		var age = $("input[name=age]:checked").val();
 		
 		var imgFile = $("#profile_file");
 		var img = "";
@@ -55,13 +54,15 @@ function justJoin(){
 		var data = new FormData();
 		
 		data.append("kind", kind);
+		data.append("ad", ad_chk);
 		data.append("id", id);
 		data.append("pw", pw);
 		data.append("nickname", nickname);
 		data.append("email", email);
-		data.append("img", img);
+		data.append("name", name);
 		data.append("sex", sex);
 		data.append("age", age);
+		data.append("img", img);
 		
 		$.ajax({
 			url: adr_ctr + 'Account/join',

@@ -1,3 +1,32 @@
+function checkAd(){
+	var ad_chk = $("#ad_chk").val();
+	
+	$.ajax({
+		url: adr_ctr + 'Account/checkAd',
+		async: false,
+		data: {
+			ad: ad_chk
+		},
+		type: 'post',
+		success: function(result){
+			result = JSON.parse(result);
+			
+			if (result.code == 200);
+			else if (result.code == 240)
+				alert(result.msg);
+			else{
+				alert("code: " + result.code + "\nmessage: " + result.msg + "\nerror: " + getError(result.code));
+				alert("회원가입 절차를 진행할 수 없습니다.\n서버 관리자에게 문의하세요.");
+				location.href = adr_ctr + 'Main/index';
+			}
+		},
+		error: function(request, status, error){
+			console.log(request.responseText);
+		    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
+}
+
 function checkId(){
 	var patternId = /^[0-9A-Za-z]+$/;
 	var idMin = 5;
@@ -210,10 +239,8 @@ function commonLogin(kind, id, pw){
 			else if(result.code == 0){
 				if (kind == 'just')
 					alert("입력한 정보를 다시 확인해주세요.");
-				else{
-					alert("첫 로그인이시네요.\n추가 정보를 입력해주세요.");
-					location.href = adr_ctr + 'Account/socialAdditionalIndex?kind=' + kind + '&no=' + id + '&prev=' + prev;
-				}
+				else
+					location.href = adr_ctr + 'Account/agreeTerms?kind=' + kind + '&no=' + id + '&prev=' + prev;
 			}
 			else{
 				alert(result.code+"로그인에 실패했습니다.\n서버 관리자에게 문의하세요.");
