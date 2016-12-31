@@ -154,6 +154,8 @@ function modifyJust(){
 					alert('프로필이 수정되었습니다.');
 					location.href = adr_ctr + 'Mypage/index';
 				}
+				else if (result.code == 240)
+					alert(result.msg);
 				else{
 					alert("code: " + result.code + "\nmessage: " + result.msg + "\nerror: " + getError(result.code));
 					alert('프로필 수정에 실패했습니다.\n서버 관리자에게 문의하세요.');
@@ -195,31 +197,34 @@ function modifySocial(){
 		data.append('ad', ad);
 		data.append('img', img);
 		data.append('prev_img', prev_img);
-	}
 	
-	$.ajax({
-		url: adr_ctr + 'Account/modify',
-		async: false,
-		data: data,
-		type: 'post',
-		cache: false,
-		processData: false,
-		contentType: false,
-		success: function(result){
-			result = JSON.parse(result);
-			
-			if (result.code == 1){
-				alert('프로필이 수정되었습니다.');
-				location.href = adr_ctr + 'Mypage/index';
+		$.ajax({
+			url: adr_ctr + 'Account/modify',
+			async: false,
+			data: data,
+			type: 'post',
+			cache: false,
+			processData: false,
+			contentType: false,
+			success: function(result){
+				result = JSON.parse(result);
+				
+				if (result.code == 200){
+					alert('프로필이 수정되었습니다.');
+					location.href = adr_ctr + 'Mypage/index';
+				}
+				else if (result.code == 240)
+					alert(result.msg);
+				else{
+					alert("code: " + result.code + "\nmessage: " + result.msg + "\nerror: " + getError(result.code));
+					alert('프로필 수정에 실패했습니다.\n서버 관리자에게 문의하세요.');
+					location.href = adr_ctr + 'Mypage/profileIndex';
+				}
+			},
+			error: function(request, response, error){
+				console.log(request.responseText);
+			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
-			else{
-				alert('프로필 수정에 실패했습니다.\n서버 관리자에게 문의하세요.');
-				location.href = adr_ctr + 'Mypage/profileIndex';
-			}
-		},
-		error: function(request, response, error){
-			console.log(request.responseText);
-		    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		}
-	});
+		});
+	}
 }

@@ -20,7 +20,7 @@ function checkAgree(){
 				if (kind == 'just')
 					location.href = adr_ctr + 'Account/joinIndex?ad=' + ad_chk;
 				else
-					socialJoin(kind, ad);
+					socialJoin(kind, ad_chk);
 			}
 			else if (result.code == 240)
 				alert(result.msg);

@@ -230,7 +230,7 @@ class AccountController extends Controller{
 			$nickname = strtoupper(substr($kind, 0, 1)).substr($id, -7);
 		}
 		
-		$email = Request::input('email');
+		$email = Request::input('email', '@');
 		$name = Request::input('name');
 		$sex = Request::input('sex');
 		$age = Request::input('age');
@@ -347,7 +347,7 @@ class AccountController extends Controller{
 		
 		$acc_idx = $_SESSION['idx'];
 		
-		$pw = Request::input('pw', '');
+		$pw = Request::input('pw', 'password');
 		$nickname = Request::input('nickname');
 		$email = Request::input('email');
 		$name = Request::input('name');
@@ -523,6 +523,9 @@ class AccountController extends Controller{
 		
 		if (isset($_COOKIE[session_name()]))
 			setcookie(session_name(), '', time() - 3600, '/');
+		
+		header('Content-Type: application/json');
+		echo json_encode(array('code' => 200, 'msg' => 'success'));
 	}
 	
 	public function iOSgetAccountInfo(){
