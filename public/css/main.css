@@ -25,6 +25,19 @@ nav, aside{display: none;}
 
 
 
+/* remove googlemap terms of use */
+a[href^="http://maps.google.com/maps"]{display:none !important}
+a[href^="https://maps.google.com/maps"]{display:none !important}
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display:none;
+}
+.gmnoprint div {
+    background:none !important;
+}
+
+
+
 /* popup background */
 #popup_background{
 	position: fixed;
@@ -38,7 +51,6 @@ nav, aside{display: none;}
 }
 
 /* popup cluster */
-
 #popup_cluster{
 	position: fixed;
 	z-index: 10001;
