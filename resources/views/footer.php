@@ -1,9 +1,6 @@
-<div class="footer_wrap">
+<div class="footer_wrap ta_c">
 	<div>
-		<span><a href="#">개인정보 취급방침</a></span>
-		<span><a href="#">약관</a></span>
-	</div>
-	<div>
-		<span>Copyright ⓒ 2016 J.Style All right reserved.</span>
+		<span><a href="<?=$adr_ctr?>Main/terms">이용약관</a></span>
+		<span class="fw_b"><a href="<?=$adr_ctr?>Main/privacyPolicy">개인정보처리방침</a></span>
 	</div>
 </div>

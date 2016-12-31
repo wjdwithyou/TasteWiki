@@ -35,8 +35,8 @@ window.onload = function(){
 	
 	var option = {
 			center: new google.maps.LatLng((limit.n + limit.s) / 2, (limit.e + limit.w) / 2),
-			zoom: 14,
-			minZoom: 14,
+			zoom: 13,
+			minZoom: 13,
 			scrollwheel: true,
 			//zoomControl: false,
 			//rotateControl: false,
@@ -295,6 +295,8 @@ function openSpotList(idx){
 		},
 		type: 'post',
 		success: function(result){
+			$("#popup_background").show();
+			
 			$("#popup_cluster").html(result);
 			$("#popup_cluster").show();
 		},
@@ -307,6 +309,7 @@ function openSpotList(idx){
 
 function closeSpotList(){
 	$("#popup_cluster").hide();
+	$("#popup_background").hide();
 }
 
 function addSpot(lat, lng, base_idx){

@@ -23,8 +23,44 @@ $(document).ready(function(){
 					$('#id').text(data.id);
 				
 				$('#nickname').val(data.nickname);
+				
+				var email_arr = data.email.split('@');
+				
+				$('#email1').val(email_arr[0]);
+				$("#email_selector").val(email_arr[1]).attr('selected', 'selected');
+				
+				if ($("#email_selector").val() == undefined){
+					$("#email_selector").val('').attr('selected', 'selected');
+					
+					$("#email2").attr("readonly", false);
+					$("#email2").css("background", '#FFFFFF');
+				}
+				else{
+					$("#email2").attr("readonly", true);
+					$("#email2").css("background", '#CCCCCC');
+				}
+				
+				$("#email2").val(email_arr[1]);
+				
+				if (data.email_chk == 1){
+					$("#verify_icon").append("<i class='fa fa-check green'></i>");
+					$("#verify_msg").addClass("green");
+					$("#verify_msg").text("인증됨");
+				}
+				else{
+					$("#verify_icon").append("<i class='fa fa-times red'></i>");
+					$("#verify_msg").addClass("red");
+					$("#verify_msg").text("인증되지 않음");
+				}
+				
+				$('#name').val(data.name);
+				
 				$('input[name=sex]').filter('input[value=' + data.sex + ']').attr('checked', 'checked');
 				$('input[name=age]').filter('input[value=' + data.age + ']').attr('checked', 'checked');
+				
+				data.ad_chk = (data.ad_chk == 1)? true: false;
+				
+				$('input[name=ad]').filter('input[value=' + data.ad_chk + ']').attr('checked', 'checked');
 			}
 			else{
 				alert("프로필을 수정할 수 없습니다.\n관리자에게 문의하세요.");
@@ -38,10 +74,14 @@ $(document).ready(function(){
 	});
 	
 	if (kind == 'just'){
+		$("#pw_msg").addClass("red");
 		$("#pw_msg").text("미입력");
+		
+		$("#pwc_msg").addClass("red");
 		$("#pwc_msg").text("미입력");
 	}
 	
+	$("#nickname_msg").addClass("blue");
 	$("#nickname_msg").text("사용가능");
 	
 	if (kind == 'just'){
@@ -56,7 +96,18 @@ $(document).ready(function(){
 	$("#nickname").focusout(function(){
 		checkNickname();
 	});
+	
+	$('#email_selector').change(function(){
+		setEmail2();
+	});
 });
+
+function verifyEmail(){
+	alert("준비 중입니다!");
+//	var email = $('#email1').val() + '@' + $('#email2').val();
+//	
+//	location.href = adr_ctr + 'Account/mailVerifyIndex?mail=' + email;
+}
 
 function modifyJust(){
 	if ($("#pw_msg").text() != "사용가능" || $("#pwc_msg").text() != "일치" || $("#nickname_msg").text() != "사용가능")
@@ -64,8 +115,11 @@ function modifyJust(){
 	else{
 		var pw = $("#pw").val();
 		var nickname = $("#nickname").val();
+		var email = $("#email1").val() + '@' + $("#email2").val();
+		var name = $("#name").val();
 		var sex = $("input[name=sex]:checked").val();
 		var age = $("input[name=age]:checked").val();
+		var ad = $("input[name=ad]:checked").val();
 		
 		var imgFile = $("#profile_file");
 		var img = "";
@@ -77,9 +131,12 @@ function modifyJust(){
 		
 		data.append("pw", pw);
 		data.append("nickname", nickname);
-		data.append("img", img);
+		data.append("email", email);
+		data.append("name", name);
 		data.append("sex", sex);
 		data.append("age", age);
+		data.append("ad", ad);
+		data.append("img", img);
 		data.append("prev_img", prev_img);
 		
 		$.ajax({
@@ -116,8 +173,11 @@ function modifySocial(){
 		alert('입력한 정보를 다시 확인해 주세요.');
 	else{
 		var nickname = $('#nickname').val();
+		var email = $('#email1').val() + '@' + $('#email2').val();
+		var name = $('#name').val();
 		var sex = $('input[name=sex]:checked').val();
 		var age = $('input[name=age]:checked').val();
+		var ad = $('input[name=ad]:checked').val();
 		
 		var imgFile = $('#profile_file');
 		var img = '';
@@ -128,9 +188,12 @@ function modifySocial(){
 		var data = new FormData();
 		
 		data.append('nickname', nickname);
-		data.append('img', img);
+		data.append('email', email);
+		data.append('name', name);
 		data.append('sex', sex);
 		data.append('age', age);
+		data.append('ad', ad);
+		data.append('img', img);
 		data.append('prev_img', prev_img);
 	}
 	

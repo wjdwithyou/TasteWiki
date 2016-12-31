@@ -17,7 +17,7 @@ function inputErrorCheck($param, $columnName){
 
 function checkParam($arr){
 	foreach ($arr as $idx => $i){
-		if (isset($i) && ($i != ''))
+		if (isset($i) && ($i !== ''))
 			continue;
 		else
 			return $idx + 1;

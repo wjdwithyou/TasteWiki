@@ -7,8 +7,8 @@ use AWS;
 include_once dirname(__FILE__)."/Common.php";
 
 class MemberModel{
-	function create($kind, $id, $pw, $nickname, $sex, $age, $img){
-		if ($_ = checkParam(array($kind, $id, $pw, $nickname, $sex, $age/*, $img*/)))
+	function create($kind, $ad_chk, $id, $pw, $nickname, $email, $name, $sex, $age, $img){
+		if ($_ = checkParam(array($kind, $ad_chk, $id, $pw, $nickname/*, $email, $name, $sex, $age, $img*/)))
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
 		
 		$encrypt = Hash::make($pw);
@@ -21,9 +21,13 @@ class MemberModel{
 		$acc_idx = DB::table('member')->insertGetId(
 				array(
 						'kind'			=> $kind,
+						'ad_chk'		=> $ad_chk,
 						'id'			=> $id,
 						'pw'			=> $encrypt,
 						'nickname'		=> $nickname,
+						'email'			=> $email,
+						'email_chk'		=> 0,
+						'name'			=> $name,
 						'sex'			=> $sex,
 						'age'			=> $age,
 						'joindate'		=> DB::raw('now()'),
@@ -52,13 +56,14 @@ class MemberModel{
 		$result = DB::update('update member set img=? where idx=?', array($img_name, $acc_idx));
 		
 		if ($acc_idx > 0)
-			return array('code' => 200, 'msg' => 'create'/*, 'data' => $acc_idx*/);
+			return array('code' => 200, 'msg' => 'create'/*, 'data' => $acc_idx*/, 'data' => $ad_chk);
 		else
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
 	}
 	
 	function login($kind, $id, $pw){
-		// inputErrorCheck
+		if ($_ = checkParam(func_get_args()))
+			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
 		
 		$member = DB::select('select idx, pw, nickname, img from member where kind=? and id=?', array($kind, $id));
 		
@@ -107,8 +112,8 @@ class MemberModel{
 			return array('code' => 250, 'msg' => 'exist nickname');
 	}
 	
-	function update($acc_idx, $pw, $nickname, $sex, $age, $img, $prev_img){
-		if ($_ = checkParam(array($acc_idx, $pw, $nickname, $sex, $age)))
+	function update($acc_idx, $ad_chk, $pw, $nickname, $email, $name, $sex, $age, $img, $prev_img){
+		if ($_ = checkParam(array($acc_idx, $ad_chk, $pw, $nickname/*, $email, $name, $sex, $age, $img, $prev_img*/)))
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
 		
 		$query_pw = '';
@@ -168,22 +173,46 @@ class MemberModel{
 		else
 			$img_name = $prev_img;
 		
-		$result = DB::update('update member set'.$query_pw.' nickname=?, sex=?, age=?'.$query_img.' where idx=?', array($nickname, $sex, $age, $acc_idx));
+		$result = DB::update('update member set ad_chk=?,'.$query_pw.' nickname=?, email=?, name=?, sex=?, age=?'.$query_img.' where idx=?', array($ad_chk, $nickname, $email, $name, $sex, $age, $acc_idx));
 		
 		if ($result == 1)
 			return array('code' => 200, 'msg' => 'success', 'n_img' => $img_name);
 		else
-			return array('code' => 500, 'msg' => 'failure in \'update\'');
+			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
 	}
 	
 	function getAccountInfo($acc_idx){
 		if ($_ = checkParam(func_get_args()))
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
 		
-		$result = DB::select('select id, nickname, img, sex, age from member where idx=?', array($acc_idx));
+		$result = DB::select('select id, nickname, email, email_chk, name, img, sex, age, ad_chk from member where idx=?', array($acc_idx));
 		
 		if (count($result) > 0)
 			return array('code' => 200, 'msg' => 'success', 'data' => $result[0]);
+		else
+			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
+	}
+	
+	function setTempCode($acc_idx, $code){
+		if ($_ = checkParam(func_get_args()))
+			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		
+		$result = DB::update('update member set temp_code=? where idx=?', array($code, $acc_idx));
+		
+		if ($result == 1)
+			return array('code' => 200, 'msg' => 'success');
+		else
+			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
+	}
+	
+	function getTempCode($acc_idx){
+		if ($_ = checkParam(func_get_args()))
+			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		
+		$result = DB::select('select temp_code from member where idx=?', array($acc_idx));
+		
+		if (count($result) > 0)
+			return array('code' => 200, 'msg' => 'success', 'data' => $result[0]->temp_code);
 		else
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
 	}

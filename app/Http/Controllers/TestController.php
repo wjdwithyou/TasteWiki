@@ -6,25 +6,6 @@ use App\Http\models\SpotModel;
 use Request;
 
 class TestController extends Controller{
-// 	public function test1(){
-// 		print_r("test1");
-// 	}
-	
-// 	private function test2(){
-// 		print_r("test2");
-// 	}
-	
-// 	public function test3(){
-// 		$this->test1();
-// 		print_r("test3");
-// 	}
-	
-// 	public function test4(){
-// 		$this->test2();
-// 		print_r("test4");
-// 	
-	
-	
 	// for manually update spot rating
 	// use: .../Test/updateRatingM?idx=XX
 	public function updateRatingM(){
@@ -43,7 +24,7 @@ class TestController extends Controller{
 		return $spot_idx;
 	}
 	
-	// for create empty cluster	
+	// for create empty cluster
 	// use: .../Test/createClusterM?lat=xx.xxxxx&lng=xx.xxxxx
 	public function createClusterM(){
 		if (Common::managerCheck() != 1){

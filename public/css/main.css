@@ -25,11 +25,35 @@ nav, aside{display: none;}
 
 
 
-/* popup cluster */
+/* remove googlemap terms of use */
+a[href^="http://maps.google.com/maps"]{display:none !important}
+a[href^="https://maps.google.com/maps"]{display:none !important}
 
-#popup_cluster{
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display:none;
+}
+.gmnoprint div {
+    background:none !important;
+}
+
+
+
+/* popup background */
+#popup_background{
 	position: fixed;
 	z-index: 10000;
+	width: 100%;
+	height: 100%;
+	top: 40px;
+	left: 0px;
+	background-color: #CCCCCC;
+    opacity: 0.64;
+}
+
+/* popup cluster */
+#popup_cluster{
+	position: fixed;
+	z-index: 10001;
 	width: 256px;
 	height: auto;
 	top: 25%;

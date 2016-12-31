@@ -107,5 +107,5 @@ function justLogin(){
 }
 
 function join(){
-	location.href = adr_ctr + 'Account/joinIndex';
+	location.href = adr_ctr + 'Account/agreeTerms?kind=just';
 }

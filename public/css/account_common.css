@@ -1,0 +1,19 @@
+table{
+	margin: auto
+}
+
+table table{
+	margin: 0
+}
+
+td{
+	padding: 8px
+}
+
+.red{
+	color: #FF6666
+}
+
+.blue{
+	color: #6666FF
+}

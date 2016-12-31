@@ -1,3 +1,32 @@
+function checkAd(){
+	var ad_chk = $("#ad_chk").val();
+	
+	$.ajax({
+		url: adr_ctr + 'Account/checkAd',
+		async: false,
+		data: {
+			ad: ad_chk
+		},
+		type: 'post',
+		success: function(result){
+			result = JSON.parse(result);
+			
+			if (result.code == 200);
+			else if (result.code == 240)
+				alert(result.msg);
+			else{
+				alert("code: " + result.code + "\nmessage: " + result.msg + "\nerror: " + getError(result.code));
+				alert("회원가입 절차를 진행할 수 없습니다.\n서버 관리자에게 문의하세요.");
+				location.href = adr_ctr + 'Main/index';
+			}
+		},
+		error: function(request, status, error){
+			console.log(request.responseText);
+		    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
+}
+
 function checkId(){
 	var patternId = /^[0-9A-Za-z]+$/;
 	var idMin = 5;
@@ -6,12 +35,21 @@ function checkId(){
 	var id = $("#id").val();
 	var len = id.length;
 	
-	if (len == 0)
+	if (len == 0){
+		$("#id_msg").removeClass("blue");
+		$("#id_msg").addClass("red");
 		$("#id_msg").text("미입력");
-	else if (!patternId.test(id))
+	}
+	else if (!patternId.test(id)){
+		$("#id_msg").removeClass("blue");
+		$("#id_msg").addClass("red");
 		$("#id_msg").text("영문, 숫자 외 사용불가");
-	else if (len < idMin || len > idMax)
+	}
+	else if (len < idMin || len > idMax){
+		$("#id_msg").removeClass("blue");
+		$("#id_msg").addClass("red");
 		$("#id_msg").text(idMin + "~" + idMax + "자까지 사용가능");
+	}
 	else{
 		$.ajax({
 			url: adr_ctr + 'Account/checkId',
@@ -23,10 +61,16 @@ function checkId(){
 			success: function(result){
 				result = JSON.parse(result);
 				
-				if (result.code == 1)
+				if (result.code == 1){
+					$("#id_msg").removeClass("red");
+					$("#id_msg").addClass("blue");
 					$("#id_msg").text("사용가능");
-				else
+				}
+				else{
+					$("#id_msg").removeClass("blue");
+					$("#id_msg").addClass("red");
 					$("#id_msg").text("중복으로 인해 사용불가");
+				}
 			},
 			error: function(request, status, error){
 				console.log(request.responseText);
@@ -44,14 +88,26 @@ function checkPw(){
 	var pw = $("#pw").val();
 	var len = pw.length;
 	
-	if (len == 0)
+	if (len == 0){
+		$("#pw_msg").removeClass("blue");
+		$("#pw_msg").addClass("red");
 		$("#pw_msg").text("미입력");
-	else if (!patternPw.test(pw))
+	}
+	else if (!patternPw.test(pw)){
+		$("#pw_msg").removeClass("blue");
+		$("#pw_msg").addClass("red");
 		$("#pw_msg").text("영문, 숫자, !@#$%^&* 외 사용불가");
-	else if (len < pwMin || len > pwMax)
+	}
+	else if (len < pwMin || len > pwMax){
+		$("#pw_msg").removeClass("blue");
+		$("#pw_msg").addClass("red");
 		$("#pw_msg").text(pwMin + "~" + pwMax + "자까지 사용가능");
-	else
+	}
+	else{
+		$("#pw_msg").removeClass("red");
+		$("#pw_msg").addClass("blue");
 		$("#pw_msg").text("사용가능");
+	}
 	
 	checkPwc();
 }
@@ -60,12 +116,21 @@ function checkPwc(){
 	var pw = $("#pw").val();
 	var pwc = $("#pwc").val();
 	
-	if (pwc.length == 0)
+	if (pwc.length == 0){
+		$("#pwc_msg").removeClass("blue");
+		$("#pwc_msg").addClass("red");
 		$("#pwc_msg").text("미입력");
-	else if (pwc != pw)
+	}
+	else if (pwc != pw){
+		$("#pwc_msg").removeClass("blue");
+		$("#pwc_msg").addClass("red");
 		$("#pwc_msg").text("미일치");
-	else
+	}
+	else{
+		$("#pwc_msg").removeClass("red");
+		$("#pwc_msg").addClass("blue");
 		$("#pwc_msg").text("일치");
+	}
 }
 
 function checkNickname(){
@@ -76,12 +141,21 @@ function checkNickname(){
 	var nickname = $("#nickname").val();
 	var len = nickname.length;
 	
-	if (len == 0)
+	if (len == 0){
+		$("#nickname_msg").removeClass("blue");
+		$("#nickname_msg").addClass("red");
 		$("#nickname_msg").text("미입력");
-	else if (!patternNickname.test(nickname))
+	}
+	else if (!patternNickname.test(nickname)){
+		$("#nickname_msg").removeClass("blue");
+		$("#nickname_msg").addClass("red");
 		$("#nickname_msg").text("한글, 영문, 숫자 외 사용불가");
-	else if (len < nicknameMin || len > nicknameMax)
+	}
+	else if (len < nicknameMin || len > nicknameMax){
+		$("#nickname_msg").removeClass("blue");
+		$("#nickname_msg").addClass("red");
 		$("#nickname_msg").text(nicknameMin + "~" + nicknameMax + "자까지 사용가능");
+	}
 	else{
 		$.ajax({
 			url: adr_ctr + 'Account/checkNickname',
@@ -93,10 +167,16 @@ function checkNickname(){
 			success: function(result){
 				result = JSON.parse(result);
 				
-				if (result.code == 200)
+				if (result.code == 200){
+					$("#nickname_msg").removeClass("red");
+					$("#nickname_msg").addClass("blue");
 					$("#nickname_msg").text("사용가능");
-				else
+				}
+				else{
+					$("#nickname_msg").removeClass("blue");
+					$("#nickname_msg").addClass("red");
 					$("#nickname_msg").text("중복으로 인해 사용불가");
+				}
 			},
 			error: function(request, status, error){
 				console.log(request.responseText);
@@ -104,6 +184,21 @@ function checkNickname(){
 			}
 		});
 	}
+}
+
+function setEmail2(){
+	var email2 = $('#email_selector').val();
+	
+	if (email2 == ''){
+		$("#email2").attr("readonly", false);
+		$("#email2").css("background", '#FFFFFF');
+	}
+	else{
+		$("#email2").attr("readonly", true);
+		$("#email2").css("background", '#CCCCCC');
+	}
+	
+	$("#email2").val(email2);
 }
 
 function showPreview(file){
@@ -144,10 +239,8 @@ function commonLogin(kind, id, pw){
 			else if(result.code == 0){
 				if (kind == 'just')
 					alert("입력한 정보를 다시 확인해주세요.");
-				else{
-					alert("첫 로그인이시네요.\n추가 정보를 입력해주세요.");
-					location.href = adr_ctr + 'Account/socialAdditionalIndex?kind=' + kind + '&no=' + id + '&prev=' + prev;
-				}
+				else
+					location.href = adr_ctr + 'Account/agreeTerms?kind=' + kind + '&no=' + id + '&prev=' + prev;
 			}
 			else{
 				alert(result.code+"로그인에 실패했습니다.\n서버 관리자에게 문의하세요.");
