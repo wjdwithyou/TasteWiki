@@ -25,7 +25,7 @@ class Common{
 	}
 	
 	static function getMapLimit(){
-		return array('n' => 37.594, 'e' => 127.108, 's' => 37.505, 'w' => 126.995, '_e' => 0.000001);
+		return array('n' => 37.567, 'e' => 127.058, 's' => 37.537, 'w' => 127.020, '_e' => 0.000001);
 	}
 	
 	static function replaceStr($str){

@@ -11,10 +11,10 @@
 			<div class="contents">
 				<nav></nav>
 				<div class="content">
-					<div class="top">
+					<div id="top">
 						<h1>...</h1>
 					</div>
-					<div class="core">
+					<div>
 					</div>
 				</div>
 				<aside></aside>

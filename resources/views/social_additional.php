@@ -12,36 +12,24 @@
 				<nav></nav>
 				<div class="content">
 					<div id="top">
-						<h1>Profile</h1>
+						<h1>추가정보 입력</h1>
 					</div>
 					<div>
+						<input type="hidden" id="prev" value="<?=$prev?>"/>
 						<input type="hidden" id="kind" value="<?=$kind?>"/>
+						<input type="hidden" id="no" value="<?=$no?>"/>
 						<table>
 							<tr>
 								<td>프로필사진</td>
 								<td>
 									<table>
 										<tr>
-											<td><img src="<?=$adr_s3?>profile/default.png" id="profile_img" width="100" height="100"/></td>
+											<td><img src="<?=$adr_s3?>profile/default.png" id="profile_img" height="100" width="100"/>
 										</tr>
 									</table>
 									<input type="file" id="profile_file" accept="image/*" onchange="showPreview($(this));"/>
 								</td>
 							</tr>
-							<?php if ($kind == 'just') :?>
-								<tr>
-									<td>아이디</td>
-									<td id="id"></td>
-								</tr>
-								<tr>
-									<td>비밀번호</td>
-									<td><input type="password" id="pw"/><span id="pw_msg"></span></td>
-								</tr>
-								<tr>
-									<td>비밀번호 확인</td>
-									<td><input type="password" id="pwc"/><span id="pwc_msg"></span></td>
-								</tr>
-							<?php endif;?>
 							<tr>
 								<td>닉네임</td>
 								<td><input type="text" id="nickname"/><span id="nickname_msg"></span></td>
@@ -65,11 +53,7 @@
 							</tr>
 							<tr>
 								<td colspan="2">
-								<?php if ($kind == 'just') :?>
-									<button type="button" onclick="modifyJust();">수정</button>
-								<?php else :?>
-									<button type="button" onclick="modifySocial();">수정</button>
-								<?php endif;?>
+									<button type="button" onclick="socialJoin()">확인</button>
 									<button type="button" onclick="history.back()">취소</button>
 								</td>
 							</tr>

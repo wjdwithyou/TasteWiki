@@ -53,17 +53,17 @@ return [
         ],
     	
     	'mysql' => [
-//     			'read' => [
-//     					'host' => env('DB_HOST', 'localhost'),
-//     			],
-//     			'write' => [
-//     					'host' => env('DB_HOST', 'localhost'),
-//     			],
+    			'read' => [
+    					'host' => 'locawiki.cuxoi0zftnth.ap-northeast-2.rds.amazonaws.com',
+    			],
+    			'write' => [
+    					'host' => 'locawiki.cuxoi0zftnth.ap-northeast-2.rds.amazonaws.com',
+    			],
     			'driver'	=> 'mysql',
-    			'host'		=> env('DB_HOST', 'localhost'),
-    			'database'	=> env('DB_DATABASE', 'forge'),
-    			'username'	=> env('DB_USERNAME', 'forge'),
-    			'password'	=> env('DB_PASSWORD', ''),
+    			//'host'		=> env('DB_HOST', 'localhost'),
+    			'database'	=> 'locawiki',
+    			'username'	=> 'locawiki',
+    			'password'	=> 'loca123123',
     			'charset'	=> 'utf8',
     			'collation'	=> 'utf8_general_ci',
     			'prefix'	=> '',

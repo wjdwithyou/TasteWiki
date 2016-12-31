@@ -50,7 +50,7 @@
                 <div class="title">서비스 <span class="tw_color1">점검중</span>입니다.</div>
                 <div>
                 	<p>
-                		<strong>- 점검 예정 일시: 2016년 12월 31일 09:00 ~ 12:00</strong>
+                		<strong>- 점검 예정 일시: 2016년 10월 4일 02:10 ~ 미정</strong>
                 	</p>
                 	<p>
                 		서비스 이용에 불편을 드려 대단히 죄송합니다.
