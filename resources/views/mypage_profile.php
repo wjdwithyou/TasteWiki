@@ -18,6 +18,9 @@
 						<input type="hidden" id="kind" value="<?=$kind?>"/>
 						<table>
 							<tr>
+								<td colspan="2"><span class="red">*</span> 표시는 필수 입력 항목입니다.</td>
+							</tr>
+							<tr>
 								<td class="fw_b">프로필사진</td>
 								<td>
 									<table>
@@ -34,17 +37,17 @@
 								<td id="id"></td>
 							</tr>
 							<tr>
-								<td class="fw_b">비밀번호</td>
-								<td><input type="password" id="pw"/><span id="pw_msg" class="mg_l8"></span></td>
+								<td class="fw_b"><span class="red">*</span>비밀번호</td>
+								<td><input type="password" id="pw"/><span id="pw_msg" class="msg"></span></td>
 							</tr>
 							<tr>
-								<td class="fw_b">비밀번호 확인</td>
-								<td><input type="password" id="pwc"/><span id="pwc_msg" class="mg_l8"></span></td>
+								<td class="fw_b"><span class="red">*</span>비밀번호 확인</td>
+								<td><input type="password" id="pwc"/><span id="pwc_msg" class="msg"></span></td>
 							</tr>
 							<?php endif;?>
 							<tr>
-								<td class="fw_b">닉네임</td>
-								<td><input type="text" id="nickname"/><span id="nickname_msg" class="mg_l8"></span></td>
+								<td class="fw_b"><span class="red">*</span>닉네임</td>
+								<td><input type="text" id="nickname"/><span id="nickname_msg" class="msg"></span></td>
 							</tr>
 							<tr>
 								<td class="fw_b">이메일</td>
@@ -64,7 +67,7 @@
 							<tr>
 								<td class="fw_b">이메일 인증</td>
 								<td>
-									<span id="verify_icon"></span><span id="verify_msg" class="mg_l8"></span>
+									<span id="verify_icon"></span><span id="verify_msg" class="msg"></span>
 									<button type="button" class="tw_btn80 mg_l8" onclick="verifyEmail();">메일인증</button>
 								</td>
 							</tr>

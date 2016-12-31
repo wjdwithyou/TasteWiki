@@ -40,19 +40,19 @@
 							</tr>
 							<tr>
 								<td class="fw_b"><span class="red">*</span>아이디</td>
-								<td><input type="text" id="id"/><span id="id_msg" class="mg_l8"></span></td>
+								<td><input type="text" id="id"/><span id="id_msg" class="msg"></span></td>
 							</tr>
 							<tr>
 								<td class="fw_b"><span class="red">*</span>비밀번호</td>
-								<td><input type="password" id="pw"/><span id="pw_msg" class="mg_l8"></span></td>
+								<td><input type="password" id="pw"/><span id="pw_msg" class="msg"></span></td>
 							</tr>
 							<tr>
 								<td class="fw_b"><span class="red">*</span>비밀번호 확인</td>
-								<td><input type="password" id="pwc"/><span id="pwc_msg" class="mg_l8"></span></td>
+								<td><input type="password" id="pwc"/><span id="pwc_msg" class="msg"></span></td>
 							</tr>
 							<tr>
 								<td class="fw_b"><span class="red">*</span>닉네임</td>
-								<td><input type="text" id="nickname"/><span id="nickname_msg" class="mg_l8"></span></td>
+								<td><input type="text" id="nickname"/><span id="nickname_msg" class="msg"></span></td>
 							</tr>
 							<tr>
 								<td class="fw_b">이메일</td>
