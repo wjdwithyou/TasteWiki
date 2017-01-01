@@ -50,6 +50,43 @@ function showCategorizedSpot(){
 	location.href = adr_ctr + "Main/index?p=" + purpose + "&k=" + kind;
 }
 
+function commonLogin(kind, id, pw){
+	var prev = $("#prev").val();
+	
+	$.ajax({
+		url: adr_ctr + 'Account/login',
+		async: false,
+		data: {
+			kind: kind,
+			id: id,
+			pw: pw
+		},
+		type: 'post',
+		success: function(result){
+			try{
+				result = JSON.parse(result);
+			} catch (exception){}
+			
+			if (result.code == 1)
+				location.href = prev;
+			else if(result.code == 0){
+				if (kind == 'just')
+					alert("입력한 정보를 다시 확인해주세요.");
+				else
+					location.href = adr_ctr + 'Account/agreeTerms?kind=' + kind + '&no=' + id + '&prev=' + prev;
+			}
+			else{
+				alert(result.code+"로그인에 실패했습니다.\n서버 관리자에게 문의하세요.");
+				location.href = adr_ctr + 'Account/loginIndex';
+			}
+		},
+		error: function(request, response, error){
+			console.log(request.responseText);
+		    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
+}
+
 function logout(){
 	$.ajax({
 		url: adr_ctr + 'Account/logout',

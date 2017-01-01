@@ -62,6 +62,7 @@
 										<option value="naver.com">naver.com</option>
 										<option value="">직접입력</option>
 									</select>
+									<span id="email_msg" class="msg"></span>
 								</td>
 							</tr>
 							<tr>

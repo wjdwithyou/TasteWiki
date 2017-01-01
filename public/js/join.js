@@ -13,6 +13,9 @@ $(document).ready(function(){
 	$("#nickname_msg").addClass("red");
 	$("#nickname_msg").text("미입력");
 	
+	$("#email_msg").addClass("red");
+	$("#email_msg").text("");
+	
 	$("#id").focusout(function(){
 		checkId();
 	});
@@ -25,14 +28,21 @@ $(document).ready(function(){
 	$("#nickname").focusout(function(){
 		checkNickname();
 	});
+	$("#email1").focusout(function(){
+		checkEmail();
+	});
+	$("#email2").focusout(function(){
+		checkEmail();
+	});
 	
 	$("#email_selector").change(function(){
 		setEmail2();
+		checkEmail();
 	});
 });
 
 function justJoin(){
-	if ($("#id_msg").text() != "사용가능" || $("#pw_msg").text() != "사용가능" || $("#pwc_msg").text() != "일치" || $("#nickname_msg").text() != "사용가능")
+	if ($("#id_msg").text() != "사용가능" || $("#pw_msg").text() != "사용가능" || $("#pwc_msg").text() != "일치" || $("#nickname_msg").text() != "사용가능" || $("#email_msg").text() != "")
 		alert("입력한 정보를 다시 확인해 주세요.");
 	else{
 		var kind = 'just';
@@ -40,7 +50,7 @@ function justJoin(){
 		var id = $("#id").val();
 		var pw = $("#pw").val();
 		var nickname = $("#nickname").val();
-		var email = $('#email1').val() + '@' + $('#email2').val();
+		var email = getEmail();
 		var name = $("#name").val();
 		var sex = $("input[name=sex]:checked").val();
 		var age = $("input[name=age]:checked").val();

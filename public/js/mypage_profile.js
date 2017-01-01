@@ -43,13 +43,13 @@ $(document).ready(function(){
 				$("#email2").val(email_arr[1]);
 				
 				if (data.email_chk == 1){
-					$("#verify_icon").append("<i class='fa fa-check green'></i>");
-					$("#verify_msg").addClass("green");
+					$("#verify_icon").append("<i class='fa fa-check verify_green'></i>");
+					$("#verify_msg").addClass("verify_green");
 					$("#verify_msg").text("인증됨");
 				}
 				else{
-					$("#verify_icon").append("<i class='fa fa-times red'></i>");
-					$("#verify_msg").addClass("red");
+					$("#verify_icon").append("<i class='fa fa-times verify_red'></i>");
+					$("#verify_msg").addClass("verify_red");
 					$("#verify_msg").text("인증되지 않음");
 				}
 				
@@ -84,6 +84,9 @@ $(document).ready(function(){
 	$("#nickname_msg").addClass("blue");
 	$("#nickname_msg").text("사용가능");
 	
+	$("#email_msg").addClass("red");
+	$("#email_msg").text("");
+	
 	if (kind == 'just'){
 		$("#pw").focusout(function(){
 			checkPw();
@@ -97,25 +100,33 @@ $(document).ready(function(){
 		checkNickname();
 	});
 	
+	$("#email1").focusout(function(){
+		checkEmail();
+	});
+	
+	$("#email2").focusout(function(){
+		checkEmail();
+	});
+	
 	$('#email_selector').change(function(){
 		setEmail2();
+		checkEmail();
 	});
 });
 
 function verifyEmail(){
-	alert("준비 중입니다!");
-//	var email = $('#email1').val() + '@' + $('#email2').val();
-//	
-//	location.href = adr_ctr + 'Account/mailVerifyIndex?mail=' + email;
+	var email = getEmail();
+	
+	location.href = adr_ctr + 'Account/mailVerifyIndex?mail=' + email;
 }
 
 function modifyJust(){
-	if ($("#pw_msg").text() != "사용가능" || $("#pwc_msg").text() != "일치" || $("#nickname_msg").text() != "사용가능")
+	if ($("#pw_msg").text() != "사용가능" || $("#pwc_msg").text() != "일치" || $("#nickname_msg").text() != "사용가능" || $("#email_msg").text() != "")
 		alert("입력한 정보를 다시 확인해 주세요.");
 	else{
 		var pw = $("#pw").val();
 		var nickname = $("#nickname").val();
-		var email = $("#email1").val() + '@' + $("#email2").val();
+		var email = getEmail();
 		var name = $("#name").val();
 		var sex = $("input[name=sex]:checked").val();
 		var age = $("input[name=age]:checked").val();
@@ -171,11 +182,11 @@ function modifyJust(){
 }
 
 function modifySocial(){
-	if ($('#nickname_msg').text() != '사용가능')
+	if ($('#nickname_msg').text() != '사용가능' || $("#email_msg").text() != "")
 		alert('입력한 정보를 다시 확인해 주세요.');
 	else{
 		var nickname = $('#nickname').val();
-		var email = $('#email1').val() + '@' + $('#email2').val();
+		var email = getEmail();
 		var name = $('#name').val();
 		var sex = $('input[name=sex]:checked').val();
 		var age = $('input[name=age]:checked').val();

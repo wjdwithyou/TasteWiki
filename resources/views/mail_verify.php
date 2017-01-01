@@ -22,7 +22,7 @@
 							</tr>
 							<tr>
 								<td><input type="text" id="verify_code"/></td>
-								<td><a><i class='fa fa-repeat'></i></a><span id="remain_time" class="gray mg_l8"></span></td>
+								<td><a href="<?=$adr_ctr?>Account/mailVerifyIndex?mail=<?=$mail?>"><i class='fa fa-repeat'></i></a><span id="remain_time" class="gray mg_l8"></span></td>
 							</tr>
 							<tr>
 								<td class="ta_c">

@@ -112,6 +112,18 @@ class MemberModel{
 			return array('code' => 250, 'msg' => 'exist nickname');
 	}
 	
+	function getIdxByEmail($email){
+		if ($_ = checkParam(func_get_args()))
+			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		
+		$result = DB::select('select idx from member where email=?', array($email));
+		
+		if (count($result) > 0)
+			return array('code' => 200, 'msg' => 'exist', 'data' => $result[0]->idx);
+		else
+			return array('code' => 250, 'msg' => 'not exist');
+	}
+	
 	function update($acc_idx, $ad_chk, $pw, $nickname, $email, $name, $sex, $age, $img, $prev_img){
 		if ($_ = checkParam(array($acc_idx, $ad_chk, $pw, $nickname/*, $email, $name, $sex, $age, $img, $prev_img*/)))
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
@@ -177,6 +189,18 @@ class MemberModel{
 		
 		if ($result == 1)
 			return array('code' => 200, 'msg' => 'success', 'n_img' => $img_name);
+		else
+			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
+	}
+	
+	function setVerifiedMail($acc_idx, $email){
+		if ($_ = checkParam(func_get_args()))
+			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		
+		$result = DB::update('UPDATE member SET email=?, email_chk=1, temp_code=NULL where idx=?', array($email, $acc_idx));
+		
+		if ($result == 1)
+			return array('code' => 200, 'msg' => 'success');
 		else
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
 	}

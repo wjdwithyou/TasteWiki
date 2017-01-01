@@ -6,17 +6,18 @@ use Request;
 use Mail;
 
 class AccountController extends Controller{
-	private function checkProfileInfo($kind, $ad_chk, $id, $pw, $nickname/*, $email, $sex, $age*/){
+	private function checkProfileInfo($kind, $ad_chk, $id, $pw, $nickname, $email/*, $name, $sex, $age*/){
 		$pattern_arr = array();
 		
-		array_push($pattern_arr, "/^(naver|katalk|facebook|just)$/");	// kind
-		array_push($pattern_arr, "/^(true|false)$/");					// ad_chk
-		array_push($pattern_arr, "/^[[:alnum:]]{5,13}$/");				// id
-		array_push($pattern_arr, "/^[0-9a-zA-Z!@#$%^&*]{8,15}$/");		// pw
-		array_push($pattern_arr, "/^[0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/u");	// nickname
-		//...															// email
-		//array_push($pattern_arr, "/^(man|woman)$/");					// sex
-		//array_push($pattern_arr, "/^(10|20s|20m|20l|30)$/");			// age
+		array_push($pattern_arr, "/^(naver|katalk|facebook|just)$/");						// kind
+		array_push($pattern_arr, "/^(true|false)$/");										// ad_chk
+		array_push($pattern_arr, "/^[[:alnum:]]{5,13}$/");									// id
+		array_push($pattern_arr, "/^[0-9a-zA-Z!@#$%^&*]{8,15}$/");							// pw
+		array_push($pattern_arr, "/^[0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/u");						// nickname
+		array_push($pattern_arr, "/^(([0-9a-z\.\-_]+@([0-9a-z\-]+\.)+[a-z]{2,6})|@)$/");	// email
+		//...																				// name
+		//array_push($pattern_arr, "/^(man|woman)$/");										// sex
+		//array_push($pattern_arr, "/^(10|20s|20m|20l|30)$/");								// age
 		
 		foreach ($pattern_arr as $idx => $i){
 			if ($kind != 'just'){
@@ -237,7 +238,7 @@ class AccountController extends Controller{
 		
 		$img = Request::file('img');
 		
-		if (!$this::checkProfileInfo($kind, $ad_chk, $id, $pw, $nickname/*, $email, $name, $sex, $age*/))
+		if (!$this::checkProfileInfo($kind, $ad_chk, $id, $pw, $nickname, $email/*, $name, $sex, $age*/))
 			return;
 		
 		$ad_chk = ($ad_chk == 'true')? 1: 0;
@@ -295,7 +296,11 @@ class AccountController extends Controller{
 	}
 	
 	public function checkId(){
-		// TODO: Referer Check
+		if (!isset($_SERVER['HTTP_REFERER'])){
+			header("Location: http://".$_SERVER['HTTP_HOST']);
+			die();
+		}
+		
 		$mbModel = new MemberModel();
 		
 		$id = Request::input('id');
@@ -330,6 +335,41 @@ class AccountController extends Controller{
 		echo json_encode($result);
 	}
 	
+	public function checkEmail(){
+		if (!isset($_SERVER['HTTP_REFERER'])){
+			header("Location: http://".$_SERVER['HTTP_HOST']);
+			die();
+		}
+		
+		header('Content-Type: application/json');
+		
+		$mbModel = new MemberModel();
+		
+		$email = Request::input('email');
+		
+		if ($email == '@'){
+			echo json_encode(array('code' => 200, 'msg' => 'available'));
+			return;
+		}
+		
+		$result_getIdxByEmail = $mbModel->getIdxByEmail($email);
+		
+		if ($result_getIdxByEmail['code'] == 250)
+			echo json_encode(array('code' => 200, 'msg' => 'available'));
+		elseif ($result_getIdxByEmail['code'] == 200){
+			if (Common::loginStateCheck() == 1){
+				if ($result_getIdxByEmail['data'] == $_SESSION['idx'])
+					echo json_encode(array('code' => 200, 'msg' => 'available'));
+				else
+					echo json_encode(array('code' => 240, 'msg' => '이미 등록된 이메일입니다.'));
+			}
+			else
+				echo json_encode(array('code' => 240, 'msg' => '이미 등록된 이메일입니다.'));
+		}
+		else
+			echo json_encode($result_getIdxByEmail);
+	}
+	
 	public function modify(){
 		if (Common::loginStateCheck() != 1){
 			header("Location: http://".$_SERVER['HTTP_HOST']);
@@ -358,7 +398,7 @@ class AccountController extends Controller{
 		
 		$img = Request::file('img');
 		
-		if (!$this::checkProfileInfo('just', $ad, 'availableID', $pw, $nickname/*, $email, $name, $sex, $age*/))
+		if (!$this::checkProfileInfo('just', $ad, 'availableID', $pw, $nickname, $email/*, $name, $sex, $age*/))
 			return;
 		
 		$ad = ($ad == 'true')? 1: 0;
@@ -398,11 +438,6 @@ class AccountController extends Controller{
 	}
 	
 	public function mailVerifyIndex(){
-		// temp
-		header("Location: http://".$_SERVER['HTTP_HOST']);
-		die();
-		
-		/*
 		if (Common::loginStateCheck() != 1){
 			header("Location: http://".$_SERVER['HTTP_HOST']);
 			die();
@@ -417,7 +452,6 @@ class AccountController extends Controller{
 		
 		$page = "mail_verify";
 		return view($page, array('page' => $page, 'mail' => $email));
-		*/
 	}
 	
 	public function sendVerify(){
@@ -441,7 +475,7 @@ class AccountController extends Controller{
 		$email = Request::input('mail');
 		
 		$len = 5;
-		$code = "";
+		$code = '';
 	
 		for ($i = 0; $i < $len; ++$i){
 			$rand = mt_rand(48, 90);
@@ -452,7 +486,9 @@ class AccountController extends Controller{
 				$code .= chr($rand);
 		}
 		
-		$result_setTempCode = $mbModel->setTempCode($acc_idx, $code);
+		$temp_code = $email.$code;
+		
+		$result_setTempCode = $mbModel->setTempCode($acc_idx, $temp_code);
 		
 		if ($result_setTempCode['code'] != 200){
 			echo json_encode($result_setTempCode);
@@ -461,21 +497,22 @@ class AccountController extends Controller{
 		
 		$data = (object)array('code' => $code, 'nickname' => $nickname, 'email' => $email);
 		
-		Mail::send(
+		$test = Mail::send(
 				'mail/verify',
 				compact('data'),
 				function ($message) use ($data){
-					$message->from('tastewiki@gmail.com', '맛위키');
+					$message->from(config('mail.from.address'), config('mail.from.name'));
 					$message->to($data->email);
-					$message->subject('[맛위키] '.$data->nickname.'님의 이메일 인증코드 확인 메일입니다.');
+					$message->subject('['.config('mail.from.name').'] '.$data->nickname.'님의 이메일 인증코드 확인 메일입니다.');
 				}
 		);
 		
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => 200, 'msg' => 'success'));
+		echo json_encode(array('code' => 200, 'msg' => 'success', 'data' => $test));
 	}
 	
 	public function checkVerify(){
+		// TODO: 시도 제한 5회
 		if (Common::loginStateCheck() != 1){
 			header("Location: http://".$_SERVER['HTTP_HOST']);
 			die();
@@ -493,11 +530,14 @@ class AccountController extends Controller{
 		$acc_idx = $_SESSION['idx'];
 		
 		$code = Request::input('code');
+		$email = Request::input('mail');
 		
 		if ($code == ""){
 			echo json_encode(array('code' => 240, 'msg' => '코드를 입력해주세요.'));
 			return;
 		}
+		
+		$temp_code = $email.$code;
 		
 		$result_getTempCode = $mbModel->getTempCode($acc_idx);
 		
@@ -506,13 +546,14 @@ class AccountController extends Controller{
 			return;
 		}
 		
-		if ($result_getTempCode['data'] != $code){
+		if ($result_getTempCode['data'] != $temp_code){
 			echo json_encode(array('code' => 240, 'msg' => '인증 코드가 일치하지 않습니다.'));
 			return;
 		}
 		
-		// after::
+		$result_setVerifiedMail = $mbModel->setVerifiedMail($acc_idx, $email);
 		
+		echo json_encode($result_setVerifiedMail);
 	}
 	
 	public function logout(){

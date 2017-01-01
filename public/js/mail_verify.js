@@ -12,6 +12,8 @@ $(document).ready(function(){
 		success: function(result){
 			result = JSON.parse(result);
 			
+			console.log(result);
+			
 			if (result.code == 200)
 				$("#desc_text").html('이메일 인증 코드가 <strong>' + email + '</strong>으로 발송되었습니다.');
 			else if (result.code == 240)
@@ -30,7 +32,7 @@ $(document).ready(function(){
 	
 	
 	// timer
-	var time = 300;
+	var time = 600;
 	
 	var timerID = setInterval(function(){
 		--time;
@@ -50,20 +52,22 @@ $(document).ready(function(){
 
 function checkVerify(){
 	var code = $("#verify_code").val();
+	var email = $("#email").val();
 	
 	$.ajax({
 		url: adr_ctr + "Account/checkVerify",
 		async: false,
 		data: {
-			code: code
-			// impl.
+			code: code,
+			mail: email
 		},
 		type: 'post',
 		success: function(result){
 			result = JSON.parse(result);
 			
 			if (result.code == 200){
-				// impl.
+				alert('메일 인증이 완료되었습니다.');
+				location.href = adr_ctr + 'Mypage/profileIndex';
 			}
 			else if (result.code == 240)
 				alert(result.msg);

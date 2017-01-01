@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'tastewiki@gmail.com', 'name' => '맛위키'],
+	'from' => ['address' => 'administrator@'.env('MAILGUN_DOMAIN', 'smtp.mailgun.org'), 'name' => '맛위키'],
 
     /*
     |--------------------------------------------------------------------------

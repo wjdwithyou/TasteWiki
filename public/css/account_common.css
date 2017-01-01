@@ -10,6 +10,21 @@ td{
 	padding: 8px
 }
 
+input[type=text], input[type=password]{
+	width: 160px;
+}
+
+#email_selector{
+	width: 160px;
+	height: 24px;
+}
+
+.msg{
+	margin-left: 8px;
+	font-size: smaller;
+	display: inline-block;
+}
+
 .red{
 	color: #FF6666
 }

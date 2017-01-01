@@ -27,6 +27,10 @@ function checkAd(){
 	});
 }
 
+function getEmail(){
+	return $("#email1").val() + '@' + $("#email2").val();
+}
+
 function checkId(){
 	var patternId = /^[0-9A-Za-z]+$/;
 	var idMin = 5;
@@ -186,6 +190,42 @@ function checkNickname(){
 	}
 }
 
+function checkEmail(){
+	var patternEmail = /^(([0-9a-z\.\-_]+@([0-9a-z\-]+\.)+[a-z]{2,6})|@)$/;
+	
+	var email = getEmail();
+	
+	if (!patternEmail.test(email))
+		$('#email_msg').text('이메일 형식이 올바르지 않습니다.');
+	else{
+		$.ajax({
+			url: adr_ctr + 'Account/checkEmail',
+			async: false,
+			data: {
+				email: email
+			},
+			type: 'post',
+			success: function(result){
+				result = JSON.parse(result);
+				
+				if (result.code == 200)
+					$("#email_msg").text("");
+				else if (result.code == 240)
+					$("#email_msg").text(result.msg);
+				else{
+					alert("code: " + result.code + "\nmessage: " + result.msg + "\nerror: " + getError(result.code));
+					alert("서비스 이용 중 문제가 발생했습니다.\n서버 관리자에게 문의하세요.");
+					location.href = adr_ctr + 'Main/index';
+				}
+			},
+			error: function(request, status, error){
+				console.log(request.responseText);
+			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	}
+}
+
 function setEmail2(){
 	var email2 = $('#email_selector').val();
 	
@@ -215,41 +255,4 @@ function showPreview(file){
 	}
 	
 	//img.attr("src", file.val());
-}
-
-function commonLogin(kind, id, pw){
-	var prev = $("#prev").val();
-	
-	$.ajax({
-		url: adr_ctr + 'Account/login',
-		async: false,
-		data: {
-			kind: kind,
-			id: id,
-			pw: pw
-		},
-		type: 'post',
-		success: function(result){
-			try{
-				result = JSON.parse(result);
-			} catch (exception){}
-			
-			if (result.code == 1)
-				location.href = prev;
-			else if(result.code == 0){
-				if (kind == 'just')
-					alert("입력한 정보를 다시 확인해주세요.");
-				else
-					location.href = adr_ctr + 'Account/agreeTerms?kind=' + kind + '&no=' + id + '&prev=' + prev;
-			}
-			else{
-				alert(result.code+"로그인에 실패했습니다.\n서버 관리자에게 문의하세요.");
-				location.href = adr_ctr + 'Account/loginIndex';
-			}
-		},
-		error: function(request, response, error){
-			console.log(request.responseText);
-		    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		}
-	});
 }
