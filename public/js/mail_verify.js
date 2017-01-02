@@ -12,8 +12,6 @@ $(document).ready(function(){
 		success: function(result){
 			result = JSON.parse(result);
 			
-			console.log(result);
-			
 			if (result.code == 200)
 				$("#desc_text").html('이메일 인증 코드가 <strong>' + email + '</strong>으로 발송되었습니다.');
 			else if (result.code == 240)
@@ -21,6 +19,7 @@ $(document).ready(function(){
 			else{
 				alert("code: " + result.code + "\nmessage: " + result.msg + "\nerror: " + getError(result.code));
 				alert('인증 메일 전송 중에 오류가 발생했습니다.\n서버 관리자에게 문의하세요.');
+				location.href = adr_ctr + 'Mypage/profileIndex';
 			}
 		},
 		error: function(request, response, error){

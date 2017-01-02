@@ -68,6 +68,7 @@
 							<tr>
 								<td class="fw_b">이메일 인증</td>
 								<td>
+									<input type="hidden" id="email_chk" value=""/>
 									<span id="verify_icon"></span><span id="verify_msg" class="msg"></span>
 									<button type="button" class="tw_btn80 mg_l8" onclick="verifyEmail();">메일인증</button>
 								</td>

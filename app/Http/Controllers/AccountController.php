@@ -403,6 +403,22 @@ class AccountController extends Controller{
 		
 		$ad = ($ad == 'true')? 1: 0;
 		
+		$result_getAccountInfo = $mbModel->getAccountInfo($acc_idx);
+		
+		if ($result_getAccountInfo['code'] != 200){
+			echo json_encode($result_getAccountInfo);
+			return;
+		}
+		
+		$email_chk = $result_getAccountInfo['data']->email_chk;
+		
+		if ($email_chk == 1){
+			if ($email != $result_getAccountInfo['data']->email){
+				echo json_encode(array('code' => 400, 'msg' => 'Invalid Access'));
+				return;
+			}
+		}
+		
 		$result = $mbModel->update($acc_idx, $ad, $pw, $nickname, $email, $name, $sex, $age, $img, $prev_img);
 		
 		if ($result['code'] == 200){
@@ -474,6 +490,13 @@ class AccountController extends Controller{
 		
 		$email = Request::input('mail');
 		
+		$pattern = "/^[0-9a-z\.\-_]+@([0-9a-z\-]+\.)+[a-z]{2,6}$/";
+		
+		if (!preg_match($pattern, $email)){
+			echo json_encode(array('code' => 400, 'msg' => 'Invalid Email Address'));
+			return;
+		}
+		
 		$len = 5;
 		$code = '';
 	
@@ -497,7 +520,7 @@ class AccountController extends Controller{
 		
 		$data = (object)array('code' => $code, 'nickname' => $nickname, 'email' => $email);
 		
-		$test = Mail::send(
+		Mail::send(
 				'mail/verify',
 				compact('data'),
 				function ($message) use ($data){
@@ -508,7 +531,7 @@ class AccountController extends Controller{
 		);
 		
 		header('Content-Type: application/json');
-		echo json_encode(array('code' => 200, 'msg' => 'success', 'data' => $test));
+		echo json_encode(array('code' => 200, 'msg' => 'success'));
 	}
 	
 	public function checkVerify(){
@@ -554,6 +577,27 @@ class AccountController extends Controller{
 		$result_setVerifiedMail = $mbModel->setVerifiedMail($acc_idx, $email);
 		
 		echo json_encode($result_setVerifiedMail);
+	}
+	
+	public function abandonVerify(){
+		if (Common::loginStateCheck() != 1){
+			header("Location: http://".$_SERVER['HTTP_HOST']);
+			die();
+		}
+		
+		if (!isset($_SERVER['HTTP_REFERER'])){
+			header("Location: http://".$_SERVER['HTTP_HOST']);
+			die();
+		}
+		
+		$mbModel = new MemberModel();
+		
+		$acc_idx = $_SESSION['idx'];
+		
+		$result_unsetVerifiedMail = $mbModel->unsetVerifiedMail($acc_idx);
+		
+		header('Content-Type: application/json');
+		echo json_encode($result_unsetVerifiedMail);
 	}
 	
 	public function logout(){

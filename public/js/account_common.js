@@ -214,7 +214,7 @@ function checkEmail(){
 					$("#email_msg").text(result.msg);
 				else{
 					alert("code: " + result.code + "\nmessage: " + result.msg + "\nerror: " + getError(result.code));
-					alert("서비스 이용 중 문제가 발생했습니다.\n서버 관리자에게 문의하세요.");
+					alert("서버 오류가 발생했습니다.\n서버 관리자에게 문의하세요.");
 					location.href = adr_ctr + 'Main/index';
 				}
 			},

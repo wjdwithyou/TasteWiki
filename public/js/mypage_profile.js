@@ -42,6 +42,8 @@ $(document).ready(function(){
 				
 				$("#email2").val(email_arr[1]);
 				
+				$("#email_chk").val(data.email_chk);
+				
 				if (data.email_chk == 1){
 					$("#verify_icon").append("<i class='fa fa-check verify_green'></i>");
 					$("#verify_msg").addClass("verify_green");
@@ -87,6 +89,10 @@ $(document).ready(function(){
 	$("#email_msg").addClass("red");
 	$("#email_msg").text("");
 	
+	$('#email1').focusin(confirmAbandonment);
+	$('#email2').focusin(confirmAbandonment);
+	$('#email_selector').focusin(confirmAbandonment);
+	
 	if (kind == 'just'){
 		$("#pw").focusout(function(){
 			checkPw();
@@ -114,10 +120,60 @@ $(document).ready(function(){
 	});
 });
 
+function confirmAbandonment(){
+	var email_chk = $('#email_chk').val();
+	
+	if (email_chk == 0)
+		return;
+	
+	var abandonment = confirm('이메일을 수정하면 다시 인증 과정을 거쳐야 합니다.\n계속하시겠습니까?');
+	
+	if (abandonment){
+		$.ajax({
+			url: adr_ctr + 'Account/abandonVerify',
+			async: false,
+			type: 'post',
+			success: function(result){
+				result = JSON.parse(result);
+				
+				if (result.code == 200){
+					$('#email_chk').val('0');
+					
+					$("#verify_icon").html("<i class='fa fa-times verify_red'></i>");
+					$("#verify_msg").addClass("verify_red");
+					$("#verify_msg").text("인증되지 않음");
+				}
+				else if (result.code == 240)
+					alert(result.msg);
+				else{
+					alert("code: " + result.code + "\nmessage: " + result.msg + "\nerror: " + getError(result.code));
+					alert('서버 오류가 발생했습니다.\n서버 관리자에게 문의하세요.');
+					location.href = adr_ctr + 'Mypage/index';
+				}
+			},
+			error: function(request, status, error){
+				console.log(request.responseText);
+			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	}
+	else{
+		$('#email1').blur();
+		$('#email2').blur();
+		$('#email_selector').blur();
+	}
+}
+
 function verifyEmail(){
 	var email = getEmail();
+	var email_chk = $('#email_chk').val();
 	
-	location.href = adr_ctr + 'Account/mailVerifyIndex?mail=' + email;
+	if (email_chk == 1)
+		alert('이미 인증이 완료된 메일입니다.');
+	else if ($('#email_msg').text() != '' || email == '@')
+		alert('올바른 이메일 양식을 입력해 주세요.');
+	else
+		location.href = adr_ctr + 'Account/mailVerifyIndex?mail=' + email;
 }
 
 function modifyJust(){

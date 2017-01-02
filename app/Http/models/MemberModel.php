@@ -8,7 +8,7 @@ include_once dirname(__FILE__)."/Common.php";
 
 class MemberModel{
 	function create($kind, $ad_chk, $id, $pw, $nickname, $email, $name, $sex, $age, $img){
-		if ($_ = checkParam(array($kind, $ad_chk, $id, $pw, $nickname/*, $email, $name, $sex, $age, $img*/)))
+		if ($_ = checkParam(array($kind, $ad_chk, $id, $pw, $nickname, $email/*, $name, $sex, $age, $img*/)))
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
 		
 		$encrypt = Hash::make($pw);
@@ -125,7 +125,7 @@ class MemberModel{
 	}
 	
 	function update($acc_idx, $ad_chk, $pw, $nickname, $email, $name, $sex, $age, $img, $prev_img){
-		if ($_ = checkParam(array($acc_idx, $ad_chk, $pw, $nickname/*, $email, $name, $sex, $age, $img, $prev_img*/)))
+		if ($_ = checkParam(array($acc_idx, $ad_chk, $pw, $nickname, $email/*, $name, $sex, $age, $img, $prev_img*/)))
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
 		
 		$query_pw = '';
@@ -197,7 +197,19 @@ class MemberModel{
 		if ($_ = checkParam(func_get_args()))
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
 		
-		$result = DB::update('UPDATE member SET email=?, email_chk=1, temp_code=NULL where idx=?', array($email, $acc_idx));
+		$result = DB::update('UPDATE member SET email=?, email_chk=1, temp_code=NULL WHERE idx=?', array($email, $acc_idx));
+		
+		if ($result == 1)
+			return array('code' => 200, 'msg' => 'success');
+		else
+			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
+	}
+	
+	function unsetVerifiedMail($acc_idx){
+		if ($_ = checkParam(func_get_args()))
+			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		
+		$result = DB::update('UPDATE member SET email_chk=0 WHERE idx=?', array($acc_idx));
 		
 		if ($result == 1)
 			return array('code' => 200, 'msg' => 'success');
