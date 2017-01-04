@@ -22,10 +22,10 @@
 					<input type="hidden" id="kind" value="<?=$kind?>"/>
 					<div id="map_canvas"></div>
 					<div id="popup_background" hidden></div>
+					<div id="popup_cluster" hidden></div>
 				</div>
 				<aside></aside>
 			</div>
-			<div id="popup_cluster" hidden></div>
 			<footer>
 			<?php include ("footer.php");?>
 			</footer>

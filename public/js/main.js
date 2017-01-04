@@ -298,7 +298,7 @@ function openSpotList(idx){
 			$("#popup_background").show();
 			
 			$("#popup_cluster").html(result);
-			$("#popup_cluster").show();
+			$("#popup_cluster").fadeIn();
 		},
 		error: function(request, status, error){
 			console.log(request.responseText);
@@ -308,7 +308,7 @@ function openSpotList(idx){
 }
 
 function closeSpotList(){
-	$("#popup_cluster").hide();
+	$("#popup_cluster").fadeOut();
 	$("#popup_background").hide();
 }
 
