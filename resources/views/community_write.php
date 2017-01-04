@@ -30,7 +30,7 @@
 					<?php else :?>
 						<input type="hidden" id="comm_idx" value="<?=$comm_idx?>"/>
 					<?php endif;?>
-						<select id="community_cate">
+						<select id="community_cate" class="mg_b8">
 							<option value="0">분류를 선택해주세요</option>
 							<?php foreach ($commList as $i) :?>
 								<?php if ($i->idx != 1) :?>
@@ -38,16 +38,16 @@
 								<?php endif;?>
 							<?php endforeach;?>
 						</select>
-						<input type="text" id="comm_title" maxlength="40" placeholder="제목을 입력하세요."/>
+						<input type="text" id="comm_title" class="mg_b8" maxlength="40" placeholder="제목을 입력하세요."/>
 						<textarea id="summernote" placeholder="Spot을 설명해주세요."></textarea>
 					</div>
 					<div class="cmw_btnset ta_c">
 					<?php if (!$comm_idx) :?>
-						<button type="button" class="cmw_btn" onclick="writeComm()">작성하기</button>
+						<button type="button" class="tw_btn80" onclick="writeComm()">작성하기</button>
 					<?php else :?>
-						<button type="button" class="cmw_btn" onclick="modifyComm()">수정하기</button>
+						<button type="button" class="tw_btn80" onclick="modifyComm()">수정하기</button>
 					<?php endif;?>
-					<button type="button" class="cmw_btn" onclick='history.go(-1);'>취소</button>
+					<button type="button" class="tw_btn80" onclick='history.go(-1);'>취소</button>
 					</div>
 				</div>
 				<aside></aside>

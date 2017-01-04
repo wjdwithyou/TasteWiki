@@ -10,13 +10,8 @@ td{
 	padding: 8px
 }
 
-input[type=text], input[type=password]{
+input[type=text], input[type=password], select{
 	width: 160px;
-}
-
-#email_selector{
-	width: 160px;
-	height: 24px;
 }
 
 .msg{

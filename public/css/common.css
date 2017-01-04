@@ -18,11 +18,9 @@ h1{
 	font-weight:bold;
 }
 
-select{border:1px solid #FF9900}
+input, select{border:1px solid #FF9900}
 
-input{border:1px solid #FF9900}
-
-input[type=text], input[type=password]{height:24px}
+input[type=text], input[type=password], select{height:24px}
 
 
 
@@ -156,8 +154,10 @@ footer{
 .mg_r8{margin-right:8px}
 .mg_t8{margin-top:8px}
 .mg_b8{margin-bottom:8px}
+.mg_tb8{margin-top:8px;margin-bottom:8px}
 .mg_t16{margin-top:16px}
 .mg_b16{margin-bottom:16px}
+.mg_tb16{margin-top:16px;margin-bottom:16px}
 .pd_a8{padding:8px}
 .pd_t8{padding-top:8px}
 .pd_b8{padding-bottom:8px}

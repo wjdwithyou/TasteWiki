@@ -5,3 +5,21 @@
 #spot_description{
 	width:100%
 }
+
+.cate_stack{
+	padding:1px 4px;
+	width:auto;
+	color:#FF9900;
+	background:#FFFFFF;
+	border:1px solid #FF9900;
+	border-radius:32px;
+}
+
+.cate_stack:hover{
+	padding:1px 4px;
+	width:auto;
+	color:#FFFFFF;
+	background:#FF9900;
+	border:1px solid #FF9900;
+	border-radius:32px;
+}

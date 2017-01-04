@@ -25,14 +25,14 @@
 						<h1>Spot 수정하기</h1>
 					<?php endif;?>
 					</div>
-					<div id="thumbnail" class="mg_b8">
+					<div id="thumbnail" class="mg_b16">
 						<div id="thumbnail_prev"></div>
 						<div id="thumbnail_img">
 							<img src="<?=$adr_s3?>spot/default.png" id="spot_img" height="100" width="100"/>
 						</div>
 						<input type="file" id="spot_file" accept="image/*" onchange="showPreview($(this));"/>
 					</div>
-					<div id="category">
+					<div id="category" class="mg_b16">
 						<strong>목적</strong>
 						<?php foreach ($purposeList as $i) :?>
 						<a onclick="addStack('p', <?=$i->idx?>, '<?=$i->name?>')"><?=$i->name?></a>
@@ -62,11 +62,11 @@
 					</div>
 					<div class="btn_wrap ta_c">
 						<?php if (!$spot_idx) :?>
-							<button type="button" onclick="writeSpot()">작성하기</button>
+							<button type="button" class="tw_btn80" onclick="writeSpot()">작성하기</button>
 						<?php else :?>
-							<button type="button" onclick="updateSpot()">수정하기</button>
+							<button type="button" class="tw_btn80" onclick="updateSpot()">수정하기</button>
 						<?php endif;?>
-						<button type="button" onclick="history.back()">취소</button>
+						<button type="button" class="tw_btn80" onclick="history.back()">취소</button>
 					</div>
 				</div>
 				<aside></aside>

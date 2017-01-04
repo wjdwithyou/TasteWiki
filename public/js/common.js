@@ -21,7 +21,7 @@ function toggleCateSelector(){
 		$("#dropdown_menu").removeClass("fixed");
 		$("#dropdown_menu").addClass("menu_item");
 		
-		$("#dropdown_cate_selector").hide();
+		$("#dropdown_cate_selector").slideUp();
 	}
 	else{
 		$.ajax({
@@ -33,7 +33,7 @@ function toggleCateSelector(){
 				$("#dropdown_menu").addClass("fixed");
 				
 				$("#dropdown_cate_selector").html(result);
-				$("#dropdown_cate_selector").show();
+				$("#dropdown_cate_selector").slideDown();
 			},
 			error: function(request, response, error){
 				console.log(request.responseText);
