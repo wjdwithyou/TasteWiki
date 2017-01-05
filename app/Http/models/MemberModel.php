@@ -193,13 +193,42 @@ class MemberModel{
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
 	}
 	
-	function setVerifiedMail($acc_idx, $email){
+	function setVerifiedMail($acc_idx, $email){		// profile info
 		if ($_ = checkParam(func_get_args()))
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
 		
 		$result = DB::update('UPDATE member SET email=?, email_chk=1, temp_code=NULL WHERE idx=?', array($email, $acc_idx));
 		
 		if ($result == 1)
+			return array('code' => 200, 'msg' => 'success');
+		else
+			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
+	}
+	
+	function getVerifiedIdxByEmail($acc_idx, $email){
+		if ($_ = checkParam(func_get_args()))
+			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		
+		$result = DB::select('SELECT idx FROM email_verified WHERE account_idx=? AND email=?', array($acc_idx, $email));
+		
+		if (count($result) > 0)
+			return array('code' => 200, 'msg' => 'exist', 'data' => $result[0]->idx);
+		else
+			return array('code' => 250, 'msg' => 'not exist');
+	}
+	
+	function addVerifiedMail($acc_idx, $email){		// email_verified list
+		if ($_ = checkParam(func_get_args()))
+			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		
+		$idx = DB::table('email_verified')->insertGetId(
+				array(
+						'account_idx'	=> $acc_idx,
+						'email'			=> $email
+				)
+		);
+		
+		if ($idx > 0)
 			return array('code' => 200, 'msg' => 'success');
 		else
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);

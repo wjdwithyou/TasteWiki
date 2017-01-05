@@ -67,11 +67,6 @@ function addWishlist(){
 }
 
 function showHistory(){
-	if (loginStateCheck() != 1){
-		alert("로그인이 필요한 기능입니다.");
-		return;
-	}
-	
 	var spot_idx = $("#spot_idx").val();
 	
 	location.href = adr_ctr + "Spot/historyIndex?idx=" + spot_idx;
@@ -83,9 +78,31 @@ function modifySpot(){
 		return;
 	}
 	
-	var spot_idx = $("#spot_idx").val();
-	
-	location.href = adr_ctr + "Spot/writeIndex?idx=" + spot_idx;
+	$.ajax({
+		url: adr_ctr + 'Account/checkVerified',
+		async: false,
+		type: 'post',
+		success: function(result){
+			result = JSON.parse(result);
+			
+			if (result.code == 200){
+				var spot_idx = $("#spot_idx").val();
+				
+				location.href = adr_ctr + "Spot/writeIndex?idx=" + spot_idx;
+			}
+			else if (result.code == 240){
+				alert(result.msg);
+			}
+			else{
+				alert("code: " + result.code + "\nmessage: " + result.msg + "\nerror: " + getError(result.code));
+				alert('Spot을 수정할 수 없습니다.\n서버 관리자에게 문의하세요.');
+			}
+		},
+		error: function(request, status, error){
+			console.log(request.responseText);
+		    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		}
+	});
 }
 
 function deleteSpot(){

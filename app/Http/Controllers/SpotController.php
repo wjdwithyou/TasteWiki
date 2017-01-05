@@ -561,11 +561,6 @@ class SpotController extends Controller{
 	}
 	
 	public function historyIndex(){
-		if (Common::loginStateCheck() != 1){
-			header("Location: http://".$_SERVER['HTTP_HOST']);
-			die();
-		}
-		
 		$spModel = new SpotModel();
 	
 		$spot_idx = Request::input('idx');
@@ -582,11 +577,6 @@ class SpotController extends Controller{
 	}
 	
 	public function historyDetail(){
-		if (Common::loginStateCheck() != 1){
-			header("Location: http://".$_SERVER['HTTP_HOST']);
-			die();
-		}
-		
 		$spModel = new SpotModel();
 		
 		$spot_idx = Request::input('idx');

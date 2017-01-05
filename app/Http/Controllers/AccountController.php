@@ -370,6 +370,40 @@ class AccountController extends Controller{
 			echo json_encode($result_getIdxByEmail);
 	}
 	
+	public function checkVerified(){
+		header('Content-Type: application/json');
+		
+		if (!isset($_SERVER['HTTP_REFERER'])){
+			echo json_encode(array('code' => 400, 'msg' => 'Invalid Access'));
+			return;
+		}
+		
+		if (Common::loginStateCheck() != 1){
+			echo json_encode(array('code' => 401, 'msg' => 'Not logined'));
+			return;
+		}
+		
+		$mbModel = new MemberModel();
+		
+		$acc_idx = $_SESSION['idx'];
+		
+		$result_getAccountInfo = $mbModel->getAccountInfo($acc_idx);
+		
+		if ($result_getAccountInfo['code'] != 200){
+			echo json_encode($result_getAccountInfo);
+			return;
+		}
+		
+		$email_chk = $result_getAccountInfo['data']->email_chk;
+		
+		if ($email_chk == 1){
+			echo json_encode(array('code' => 200, 'msg' => 'verified'));
+		}
+		else{
+			echo json_encode(array('code' => 240, 'msg' => "이메일 인증이 필요한 기능입니다."));
+		}
+	}
+	
 	public function modify(){
 		if (Common::loginStateCheck() != 1){
 			header("Location: http://".$_SERVER['HTTP_HOST']);
@@ -535,7 +569,7 @@ class AccountController extends Controller{
 	}
 	
 	public function checkVerify(){
-		// TODO: 시도 제한 5회
+		// TODO: try limit 5
 		if (Common::loginStateCheck() != 1){
 			header("Location: http://".$_SERVER['HTTP_HOST']);
 			die();
@@ -575,6 +609,14 @@ class AccountController extends Controller{
 		}
 		
 		$result_setVerifiedMail = $mbModel->setVerifiedMail($acc_idx, $email);
+		
+		// begin additional process
+		$result_getVerifiedIdxByEmail = $mbModel->getVerifiedIdxByEmail($acc_idx, $email);
+		
+		if ($result_getVerifiedIdxByEmail['code'] == 250){
+			$mbModel->addVerifiedMail($acc_idx, $email);
+		}
+		// end additional process
 		
 		echo json_encode($result_setVerifiedMail);
 	}

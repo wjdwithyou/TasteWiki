@@ -15,7 +15,6 @@
 						<h1>Spot 수정내역</h1>
 					</div>
 					<div>
-						<input type="hidden" id="spot_idx" value="<?=$spot_idx?>"/>
 						<table class="history_list_table">
 						<?php for ($i = count($data) - 1; $i >= 0; --$i) :?>
 							<tr>
@@ -23,7 +22,7 @@
 								<td class="history_list_td" width="150px"><?=$data[$i]->modifydate?></td>
 								<td class="history_list_td" width="150px"><a href="#"><?=$data[$i]->nickname?></a></td>
 								<td class="history_list_description" width="550px"><?=$data[$i]->description?></td>
-								<td class="history_list_td" width="50px"><a onclick="showPrev(<?=$i + 1?>);">보기</a></td>
+								<td class="history_list_td" width="50px"><a href="<?=$adr_ctr?>Spot/historyDetail?idx=<?=$spot_idx?>&ver=<?=$i + 1?>">보기</a></td>
 							</tr>
 						<?php endfor;?>
 						</table>
