@@ -62,8 +62,9 @@ class MemberModel{
 	}
 	
 	function login($kind, $id, $pw){
-		if ($_ = checkParam(func_get_args()))
+		if ($_ = checkParam(func_get_args())){
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		}
 		
 		$member = DB::select('select idx, pw, nickname, img from member where kind=? and id=?', array($kind, $id));
 		
@@ -72,7 +73,7 @@ class MemberModel{
 				DB::update('update member set lastdate=now() where idx=?', array($member[0]->idx));
 				
 				return array(
-						'code' => 1,
+						'code' => 200,
 						'msg' => 'success',
 						'data' => (object)array(
 											'idx' => $member[0]->idx,
@@ -81,11 +82,13 @@ class MemberModel{
 						)
 				);
 			}
-			else
-				return array('code' => 0, 'msg' => 'failure');
+			else{
+				return array('code' => 250, 'msg' => 'failure');
+			}
 		}
-		else
-			return array('code' => 0, 'msg' => 'failure');
+		else{
+			return array('code' => 250, 'msg' => 'failure');
+		}
 	}
 	
 	function checkAvailableId($id){

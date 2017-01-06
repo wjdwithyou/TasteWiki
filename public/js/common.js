@@ -67,16 +67,22 @@ function commonLogin(kind, id, pw){
 				result = JSON.parse(result);
 			} catch (exception){}
 			
-			if (result.code == 1)
+			if (result.code == 200){
 				location.href = prev;
-			else if(result.code == 0){
-				if (kind == 'just')
-					alert("입력한 정보를 다시 확인해주세요.");
-				else
+			}
+			else if(result.code == 240){
+				if (kind == 'just'){
+					alert(result.msg);
+					
+					$('#pw').val('');
+				}
+				else{
 					location.href = adr_ctr + 'Account/agreeTerms?kind=' + kind + '&no=' + id + '&prev=' + prev;
+				}
 			}
 			else{
-				alert(result.code+"로그인에 실패했습니다.\n서버 관리자에게 문의하세요.");
+				alert("code: " + result.code + "\nmessage: " + result.msg + "\nerror: " + getError(result.code));
+				alert("로그인에 실패했습니다.\n서버 관리자에게 문의하세요.");
 				location.href = adr_ctr + 'Account/loginIndex';
 			}
 		},

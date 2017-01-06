@@ -59,26 +59,41 @@ class AccountController extends Controller{
 	}
 	
 	public function login(){
+		header('Content-Type: application/json');
+		
+		if (!isset($_SERVER['HTTP_REFERER'])){
+			echo json_encode(array('code' => 400, 'msg' => 'Invalid Access'));
+			return;
+		}
+		
 		$mbModel = new MemberModel();
 		
 		$kind = Request::input('kind');
 		$id = Request::input('id');
 		$pw = Request::input('pw');
 		
-		$result = $mbModel->login($kind, $id, $pw);
+		$result_login = $mbModel->login($kind, $id, $pw);
 		
-		if ($result['code'] == 1){
-			if (session_id() == '')
-				session_start();
+		if ($result_login['code'] != 200){
+			if ($result_login['code'] == 250){
+				echo json_encode(array('code' => 240, 'msg' => "입력한 정보를 다시 확인해주세요."));
+			}
+			else{
+				echo json_encode($result_login);
+			}
 			
-			$_SESSION['idx'] = $result['data']->idx;
-			$_SESSION['nickname'] = $result['data']->nickname;
-			$_SESSION['img'] = $result['data']->img;
-			$_SESSION['kind'] = $kind;
+			return;
 		}
 		
-		header('Content-Type: application/json');
-		echo json_encode($result);
+		if (session_id() == '')
+			session_start();
+		
+		$_SESSION['idx'] = $result_login['data']->idx;
+		$_SESSION['nickname'] = $result_login['data']->nickname;
+		$_SESSION['img'] = $result_login['data']->img;
+		$_SESSION['kind'] = $kind;
+		
+		echo json_encode($result_login);
 	}
 	
 	/*

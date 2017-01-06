@@ -17,13 +17,16 @@ function checkAgree(){
 			result = JSON.parse(result);
 			
 			if (result.code == 200){
-				if (kind == 'just')
+				if (kind == 'just'){
 					location.href = adr_ctr + 'Account/joinIndex?ad=' + ad_chk;
-				else
+				}
+				else{
 					socialJoin(kind, ad_chk);
+				}
 			}
-			else if (result.code == 240)
+			else if (result.code == 240){
 				alert(result.msg);
+			}
 			else{
 				alert("code: " + result.code + "\nmessage: " + result.msg + "\nerror: " + getError(result.code));
 				alert("서버오류로 인해 회원가입을 진행할 수 없습니다.\n서버 관리자에게 문의하세요.");
@@ -56,10 +59,12 @@ function socialJoin(kind, ad){
 		success: function(result){
 			result = JSON.parse(result);
 			
-			if (result.code == 200)
+			if (result.code == 200){
 				commonLogin(kind, no, no);
-			else if (result.code == 240)
+			}
+			else if (result.code == 240){
 				alert(result.msg);
+			}
 			else{
 				alert("code: " + result.code + "\nmessage: " + result.msg + "\nerror: " + getError(result.code));
 				alert("로그인에 실패했습니다.\n서버 관리자에게 문의하세요.");

@@ -10,7 +10,6 @@
 		<a onclick="logout();"><div class="menu_item f_r">로그아웃</div></a>
 		<a href="<?=$adr_ctr?>Mypage/index"><div class="header_nick menu_item f_r"><img class="img_16" src="<?=$adr_s3?>profile/<?=$session_img?>"/>&nbsp;<?=$session_nickname?>님</div></a>
 		<?php else :?>
-		<a href="<?=$adr_ctr?>Account/agreeTerms?kind=just"><div class="menu_item f_r">회원가입</div></a>
 		<a href="<?=$adr_ctr?>Account/loginIndex"><div class="menu_item f_r">로그인</div></a>
 		<?php endif;?>
 	</div>

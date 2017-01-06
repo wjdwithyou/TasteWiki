@@ -1,28 +1,35 @@
 td, tr {
    padding: 5px !important
 }
+
 .title{
    width: 50px;
    text-align: center;
    vertical-align: middle
 }
+
 .btn{
    height: 100% !important;
    width: 64px;
 }
+
 .tabl_btn{
    padding: 0px 0px 0px 5px !important
 }
+
 label{
    margin-bottom: 0px !important
 }
+
 .img_log{
    width: 80px;
    margin: 20px 0px
 }
+
 table{
    margin: auto
 }
+
 h3{
    letter-spacing: 5px
 }
