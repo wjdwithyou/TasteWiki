@@ -185,5 +185,5 @@ footer{
 }
 
 @media(max-width: 1024px){
-	nav, aside{display: none;}
+	nav, aside{display:none}
 }
