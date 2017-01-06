@@ -64,7 +64,8 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 	background-color: #FFFFFF;
 	border: 4px solid #FF9900;
 	border-radius: 16px;
-	padding: 16px
+	padding: 16px;
+	max-width: 300px;
 }
 
 .popup_cluster_top{
@@ -87,6 +88,7 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 
 .popup_cluster_table td{
 	padding: 8px;
+	white-space: nowrap;
 }
 
 .popup_cluster_table a:hover{
@@ -105,6 +107,7 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 /* scroll bar */
 ::-webkit-scrollbar{
 	width: 12px;
+	height: 12px;
 }
 
 ::-webkit-scrollbar-track{
