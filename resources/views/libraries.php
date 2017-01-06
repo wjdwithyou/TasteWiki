@@ -4,6 +4,7 @@
 <meta name="keywords" content="맛집 왕십리 리뷰 위키 review wiki"/>
 <meta name="description" content="왕십리 맛집의 모든 것"/>
 <meta name="author" content=""/>
+<meta name="theme-color" content="#FF9900"/>
 <meta name="robots" content="index,follow"/>
 <meta name="csrf-token" content="<?php echo csrf_token();?>"/>
 <meta name="naver-site-verification" content="4a3869f0154ebabcd002132de51d1e22358b56a4"/>
