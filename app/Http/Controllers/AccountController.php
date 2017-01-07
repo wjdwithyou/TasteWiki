@@ -35,24 +35,20 @@ class AccountController extends Controller{
 	}
 	
 	public function loginIndex(){
+		if (Common::loginStateCheck() == 1){
+			header("Location: http://".$_SERVER['HTTP_HOST']);
+			die();
+		}
+		
 		$host = 'http://'.$_SERVER['HTTP_HOST'].'/';
 		$prev = '';
 		
 		if (isset($_SERVER['HTTP_REFERER'])){
-			$prev = $_SERVER['HTTP_REFERER'];
-			
-			$temp = array();
-			
-			array_push($temp, $host.'Account/loginIndex');
-			array_push($temp, $host.'Account/joinIndex');
-			
-			foreach ($temp as $i){
-				if ($prev == $i)
-					$prev = $host;
-			}
+			$prev .= $_SERVER['HTTP_REFERER'];
 		}
-		else
-			$prev = $host;
+		else{
+			$prev .= $host;
+		}
 		
 		$page = 'login';
 		return view($page, array('page' => $page, 'prev' => $prev));
@@ -95,43 +91,6 @@ class AccountController extends Controller{
 		
 		echo json_encode($result_login);
 	}
-	
-	/*
-	public function index(){
-// 		 20160120 J.Style
-// 			If session exist, redirect to myPage.
-// 		   Else,
-// 		  			If prev page(REFERER) exist, 	and has 'prev', redirect to 'prev' page.
-// 		 											and no 'prev', redirect to prev page(HTTP_REFERER).
-// 		  			Else, redirect to mainPage.
-// 		 
-		if (session_id() == '')
-			session_start();
-	
-			if (isset($_SESSION['idx'])){
-				$mbModel = new MemberModel();
-	
-				$nickname = $_SESSION['nickname'];
-				$result = $mbModel->getInfoByNickname($nickname);
-					
-				$page = 'mypage';
-				return view($page, array('page' => $page, 'result' => $result['data'][0]));
-			}
-			else{
-				if (isset($_SERVER['HTTP_REFERER'])){
-					if (Request::has('prev'))
-						$prev_url = Request::input('prev');
-						else
-							$prev_url = $_SERVER['HTTP_REFERER'];
-				}
-				else
-					$prev_url = 'http://'.$_SERVER['HTTP_HOST'];
-						
-					$page = 'login';
-					return view($page, array('page' => $page, 'prev_url' => $prev_url));
-			}
-	}
-	*/
 	
 	public function naverCallback(){
 		if (!empty(Request::input('error'))){
@@ -198,6 +157,11 @@ class AccountController extends Controller{
 	}
 	
 	public function agreeTerms(){
+		if (Common::loginStateCheck() == 1){
+			header("Location: http://".$_SERVER['HTTP_HOST']);
+			die();
+		}
+		
 		if (!isset($_SERVER['HTTP_REFERER'])){
 			header("Location: http://".$_SERVER['HTTP_HOST']);
 			die();
@@ -212,6 +176,11 @@ class AccountController extends Controller{
 	}
 	
 	public function joinIndex(){
+		if (Common::loginStateCheck() == 1){
+			header("Location: http://".$_SERVER['HTTP_HOST']);
+			die();
+		}
+		
 		if (!isset($_SERVER['HTTP_REFERER'])){
 			header("Location: http://".$_SERVER['HTTP_HOST']);
 			die();
