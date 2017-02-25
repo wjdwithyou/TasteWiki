@@ -4,38 +4,41 @@ var adr_s3 = $("#adr_s3").val();
 window.onload = function(){
 	var window_height = $(window).height();
 	var wrap_height = $(".wrap").height();
-	
+
 	if (wrap_height >= window_height)
 		return;
-	
+
 	var header_height = $(".header_wrap").parent().outerHeight();
 	var footer_height = $(".footer_wrap").parent().outerHeight();
-	
+
 	var contents_height = window_height - (header_height + footer_height);
-	
+
 	$(".contents").height(contents_height + "px");
 };
 
-function toggleCateSelector(){
-	if ($("#dropdown_cate_selector").is(":visible")){
+function toggleCateSelector() {
+	if ($("#dropdown_cate_selector").is(":visible")) {
 		$("#dropdown_menu").removeClass("fixed");
 		$("#dropdown_menu").addClass("menu_item");
-		
+
 		$("#dropdown_cate_selector").slideUp();
-	}
-	else{
+	} else{
 		$.ajax({
 			url: adr_ctr + 'Main/cateSelector',
 			async: false,
 			type: 'post',
-			success: function(result){
+			success: function(result) {
+				if ($("#dropdown_user_menu").is(":visible")) {
+					toggleUserMenu();
+				}
+
 				$("#dropdown_menu").removeClass("menu_item");
 				$("#dropdown_menu").addClass("fixed");
-				
+
 				$("#dropdown_cate_selector").html(result);
 				$("#dropdown_cate_selector").slideDown();
 			},
-			error: function(request, response, error){
+			error: function(request, response, error) {
 				console.log(request.responseText);
 			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
@@ -43,16 +46,52 @@ function toggleCateSelector(){
 	}
 }
 
-function showCategorizedSpot(){
+function showCategorizedSpot() {
 	var purpose = $("#cate_search_purpose").val();
 	var kind = $("#cate_search_kind").val();
-	
+
 	location.href = adr_ctr + "Main/index?p=" + purpose + "&k=" + kind;
+}
+
+function toggleUserMenu() {
+	if ($("#dropdown_user_menu").is(":visible")) {
+		$("#dropdown_user").removeClass("menu_user_fixed");
+		$("#dropdown_user").addClass("menu_user");
+
+		$("#dropdown_user_menu").slideUp();
+	} else {
+		var logined = loginStateCheck();
+
+		$.ajax({
+			url: adr_ctr + 'Main/userMenu',
+			async: false,
+			data:{
+				logined: logined,
+				adr_ctr: adr_ctr
+			},
+			type: 'post',
+			success: function(result) {
+				if ($("#dropdown_cate_selector").is(":visible")) {
+					toggleCateSelector();
+				}
+
+				$("#dropdown_user").removeClass("menu_user");
+				$("#dropdown_user").addClass("menu_user_fixed");
+
+				$("#dropdown_user_menu").html(result);
+				$("#dropdown_user_menu").slideDown();
+			},
+			error: function(request, response, error) {
+				console.log(request.responseText);
+			    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			}
+		});
+	}
 }
 
 function commonLogin(kind, id, pw){
 	var prev = $("#prev").val();
-	
+
 	$.ajax({
 		url: adr_ctr + 'Account/login',
 		async: false,
@@ -66,14 +105,14 @@ function commonLogin(kind, id, pw){
 			try{
 				result = JSON.parse(result);
 			} catch (exception){}
-			
+
 			if (result.code == 200){
 				location.href = prev;
 			}
 			else if(result.code == 240){
 				if (kind == 'just'){
 					alert(result.msg);
-					
+
 					$('#pw').val('');
 				}
 				else{
@@ -110,7 +149,7 @@ function logout(){
 
 function loginStateCheck(){
 	var logined = $("#logined").val();
-	
+
 	return logined;
 }
 
@@ -128,9 +167,9 @@ function getError(code){
 /*
 function moveLogin(){
 	var prev_page = $("#page").val();
-	
+
 	// if login exception impl
-	
+
 	location.href = adr_ctr + 'Account/loginIndex?prev=' + prev_page;
 }
 */

@@ -87,9 +87,25 @@ header{
 	color: #FF9900;
 }
 
-.header_wrap .menu a .header_nick{
-	width: auto;
-	padding: 0 16px;
+.header_wrap .menu a .menu_user{
+	width: 40px;
+	text-align: center;
+	display: inline-block;
+}
+
+.header_wrap .menu a .menu_user:hover{
+	background: #FFFF99;
+}
+
+.header_wrap .menu a .menu_user img{border-radius:16px}
+.header_wrap .menu a .menu_user_fixed img{border-radius:16px}
+
+.header_wrap .menu a .menu_user_fixed{
+	width: 40px;
+	text-align: center;
+	display: inline-block;
+	background: #FFFF99;
+	color: #FF9900;
 }
 
 footer{
@@ -116,8 +132,7 @@ footer{
 
 
 
-
-
+/* dropdown */
 #dropdown_cate_selector{
 	position: absolute;
 	top: 40px;
@@ -136,6 +151,25 @@ footer{
 	margin: 4px;
 }
 
+#dropdown_user_menu{
+	position: absolute;
+	top: 40px;
+	right: 11px;
+	width: 128px;
+	height: auto;
+	border: 1px solid #FF9900;
+	background: white;
+	z-index: 10000;
+}
+
+.dropdown_item{
+	padding: 8px;
+}
+
+.dropdown_item:hover{
+	background: #FFFF99;
+}
+
 
 
 
@@ -147,6 +181,7 @@ footer{
 .fw_b{font-weight:bold}
 .fw_n{font-weight:normal}
 .img_16{height:16px;width:16px}
+.img_32{height:32px;width:32px}
 .mg_r11{margin-right:11px}	/* for logo image */
 .mg_a4{margin:4px}
 .mg_a8{margin:8px}

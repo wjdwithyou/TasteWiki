@@ -5,13 +5,9 @@
 		<a href="<?=$adr_ctr?>Community/index"><div class="menu_item f_l">커뮤니티</div></a>
 		<!-- li><a href="#">내게딱맛</a></li -->
 		<!-- li><a href="#">마이맛집</a></li -->
-		
-		<?php if ($logined) :?>
-		<a onclick="logout();"><div class="menu_item f_r">로그아웃</div></a>
-		<a href="<?=$adr_ctr?>Mypage/index"><div class="header_nick menu_item f_r"><img class="img_16" src="<?=$adr_s3?>profile/<?=$session_img?>"/>&nbsp;<?=$session_nickname?>님</div></a>
-		<?php else :?>
-		<a href="<?=$adr_ctr?>Account/loginIndex"><div class="menu_item f_r">로그인</div></a>
-		<?php endif;?>
+
+		<a onclick="toggleUserMenu()"><div id="dropdown_user" class="menu_user f_r"><img class="img_32" src="<?=$adr_s3?>profile/<?php echo (($logined) ? $session_img : "default.png")?>"/></div></a>
 	</div>
 </div>
 <div id="dropdown_cate_selector" hidden></div>
+<div id="dropdown_user_menu" hidden></div>
