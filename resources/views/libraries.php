@@ -13,7 +13,7 @@
 	$host = $_SERVER['SERVER_NAME'];
 	$port = '8000';
 	$protocol = ($host === 'localhost')? 'http://': 'https://';
-	
+
 	$host .= ($host === 'localhost')? ':'.$port: '';
 
 	$adr_ctr = $protocol.$host.'/';
@@ -55,7 +55,7 @@
 <input type="hidden" id="adr_ctr" value="<?=$adr_ctr?>"/>
 
 <!-- 모바일 환경 확인 -->
-<?php 
+<?php
 	$is_mobile = preg_match("/(android|avantgo|iphone|ipad|ipod|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
 ?>
 
@@ -64,14 +64,14 @@
 <?php else :?>
 <input type="hidden" id="is_mobile" value="0"/>
 <?php endif;?>
-  	
+
 <!-- 로그인 관련 세션  -->
 <?php
 	if (session_id() == '')
 		session_start();
-	
+
 	$logined = !empty($_SESSION['idx']);
-	
+
 	if ($logined){
 		$session_nickname = $_SESSION['nickname'];
 		$session_img = $_SESSION['img'];
@@ -83,6 +83,11 @@
 <?php else :?>
 <input type="hidden" id="logined" value="0"/>
 <?php endif;?>
+
+<!-- Timestamp -->
+<?php
+	$timestamp = date("U");
+?>
 
 <link rel="stylesheet" href="<?=$adr_btstrp?>css/bootstrap.css">
 <link rel="stylesheet" href="<?=$adr_btstrp?>css/bootstrap-theme.css">
@@ -109,19 +114,19 @@ $.ajaxSetup({
 <script type="text/javascript" src="//connect.facebook.net/ko_KR/sdk.js"></script>
 
 <!-- 전체 공통 js, css -->
-<link rel="stylesheet" href="<?=$adr_css?>common.css">
-<script type="text/javascript" src="<?=$adr_js?>common.js"></script>
+<link rel="stylesheet" href="<?=$adr_css?>common.css?v=<?=$timestamp?>">
+<script type="text/javascript" src="<?=$adr_js?>common.js?v=<?=$timestamp?>"></script>
 
 <!-- Account 관련 css, js ; Account 관련 페이지일 때 사용-->
 <?php if ($page == 'join' || $page == 'mypage_profile') :?>
-<link rel="stylesheet" href="<?=$adr_css?>account_common.css">
-<script type="text/javascript" src="<?=$adr_js?>account_common.js"></script>
+<link rel="stylesheet" href="<?=$adr_css?>account_common.css?v=<?=$timestamp?>">
+<script type="text/javascript" src="<?=$adr_js?>account_common.js?v=<?=$timestamp?>"></script>
 <?php endif;?>
 
 <!-- page 관련 css, js -->
 <input type="hidden" id="page" value="<?=$page?>"/>
-<link rel="stylesheet" href="<?=$adr_css?><?=$page?>.css">
-<script type="text/javascript" src="<?=$adr_js?><?=$page?>.js"></script>
+<link rel="stylesheet" href="<?=$adr_css?><?=$page?>.css?v=<?=$timestamp?>">
+<script type="text/javascript" src="<?=$adr_js?><?=$page?>.js?v=<?=$timestamp?>"></script>
 
 <!-- header,footer 관련 css, js -->
 
