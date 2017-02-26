@@ -3,12 +3,12 @@
 	<head>
 	<?php include ("libraries.php");?>
 		<script type="text/javascript" src="<?=$adr_js?>write_common.js"></script>
-		
+
 		<link href="<?=$adr_ctr?>summernote/summernote.css" rel="stylesheet">
 		<link href="<?=$adr_ctr?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<script src="<?=$adr_ctr?>summernote/summernote.min.js"></script>
 		<script src="<?=$adr_ctr?>summernote/summernote-ko-KR.js"></script>
-		<script src="<?=$adr_js?>activate-power-mode.js"></script>
+		<script src="<?=$adr_js?>activate-power-mode.js?v=<?=$timestamp?>"></script>
 	</head>
 	<body>
 		<div class="wrap">

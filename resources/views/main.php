@@ -5,7 +5,7 @@
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCakbOCGKi4pdXWxsnGdFLcxntyasmG4Zg&region=KR"></script>
 		<!--script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBdEGLrk_lEg1a-69i1_V6gl9qEvxMR4hQ&sensor=true&region=KR"></script-->
 		<!--script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=true"></script-->
-		<script src="<?=$adr_js?>markerclusterer.js"></script>
+		<script src="<?=$adr_js?>markerclusterer.js?v=<?=$timestamp?>"></script>
 		<script>
 			document.title += '메인';
 		</script>
