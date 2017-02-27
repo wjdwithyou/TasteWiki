@@ -51,7 +51,7 @@ header{
 	flex-shrink: 0;
 }
 
-.logo_img{height: 32px;}
+.logo_img{height:32px}
 
 .header_wrap{
 	background: #FF9900;
@@ -68,45 +68,34 @@ header{
 	color: #FFFF99;
 }
 
-.header_wrap .menu a .menu_item{
+.header_wrap .menu a .menu_item96{
 	width: 96px;
 	text-align: center;
 	display: inline-block;
 }
 
-.header_wrap .menu a .menu_item:hover{
+.header_wrap .menu a .menu_item96:hover{
+	background: #FFFF99;
+	color: #FF9900;
+}
+
+.header_wrap .menu a .menu_item40{
+	width: 40px;
+	text-align: center;
+	display: inline-block;
+}
+
+.header_wrap .menu a .menu_item40:hover{
 	background: #FFFF99;
 	color: #FF9900;
 }
 
 .header_wrap .menu a .fixed{
-	width: 96px;
-	text-align: center;
-	display: inline-block;
 	background: #FFFF99;
 	color: #FF9900;
 }
 
-.header_wrap .menu a .menu_user{
-	width: 40px;
-	text-align: center;
-	display: inline-block;
-}
-
-.header_wrap .menu a .menu_user:hover{
-	background: #FFFF99;
-}
-
-.header_wrap .menu a .menu_user img{border-radius:16px}
-.header_wrap .menu a .menu_user_fixed img{border-radius:16px}
-
-.header_wrap .menu a .menu_user_fixed{
-	width: 40px;
-	text-align: center;
-	display: inline-block;
-	background: #FFFF99;
-	color: #FF9900;
-}
+.header_wrap .menu a .menu_item40 img{border-radius:16px}
 
 footer{
 	height: 32px;
@@ -221,4 +210,12 @@ footer{
 
 @media(max-width: 1024px){
 	nav, aside{display:none}
+}
+
+@media(min-width: 421px){
+	.m_header{display:none}
+}
+
+@media(max-width: 420px){
+	.pc_header{display:none}
 }
