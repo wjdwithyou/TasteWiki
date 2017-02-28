@@ -7,7 +7,7 @@
 
 			$('meta[name="og:title"]').attr('content', document.title);
 			$('meta[name="og:description"]').attr('content', '<?=$data->content?>');
-			
+
 			$('meta[name="twitter:title"]').attr('content', document.title);
 			$('meta[name="twitter:description"]').attr('content', '<?=$data->content?>');
 
@@ -29,9 +29,9 @@
 					<?php if (!$is_history) :?>
 						<h1><?=$data->name?></h1>
 						<p align="right">
-							<button type="button" onclick="addWishlist();">찜하기</button>
-							<button type="button" onclick="showHistory();">역사</button>
-							<button type="button" onclick="modifySpot();">수정</button>
+							<button type="button" class="tw_btn64" onclick="addWishlist();">찜하기</button>
+							<button type="button" class="tw_btn64" onclick="showHistory();">역사</button>
+							<button type="button" class="tw_btn64" onclick="modifySpot();">수정</button>
 							<!-- button type="button" onclick="deleteSpot();">삭제</button -->
 						</p>
 						<p align="right">마지막 수정: <?=$data->lastdate?><br/>hit: <?=$data->hit_cnt?></p>
@@ -41,17 +41,31 @@
 					<?php endif;?>
 					</div>
 					<?php if (!$is_history) :?>
-						<div id="thumbnail">
-							<img src="<?=$adr_s3?>spot/<?=$data->img?>" id="spot_img" height="100" width="100"/>
-						</div>
-						<div id="rating">
-						<?php foreach($rating_kind as $i) :?>
-							<?php $iter = 'rating_'.$i->eng_name;?>
-							<img src="<?=$adr_img?>star_head.png" height="50" width="50"/><?=$i->name?>: <?=sprintf("%.2f",$data->$iter)?>
-						<?php endforeach;?>
+						<div class="thumb-rating mg_b16">
+							<div id="thumbnail" class="f_l">
+								<img id="spot_img" src="<?=$adr_s3?>spot/<?=$data->img?>"/>
+							</div>
+							<div class="rating">
+								<div class="f_l">
+								<?php foreach($rating_kind as $i) :?>
+									<div class="pd_tb8"><i class="fa <?=$i->fa_name?>" aria-hidden="true"></i></div>
+								<?php endforeach;?>
+								</div>
+								<div class="f_l ta_c">
+								<?php foreach($rating_kind as $i) :?>
+									<div class="pd_a8"><?=$i->name?></div>
+								<?php endforeach;?>
+								</div>
+								<div class="f_l">
+								<?php foreach($rating_kind as $i) :?>
+									<?php $iter = 'rating_'.$i->eng_name;?>
+									<div class="pd_tb8">:&nbsp;<?=sprintf("%.2f",$data->$iter)?></div>
+								<?php endforeach;?>
+								</div>
+							</div>
 						</div>
 					<?php endif;?>
-					<div id="stack_wrap">
+					<div id="stack_wrap" class="mg_b16">
 					<?php foreach($cate as $i) :?>
 						#<?=$i?>&nbsp;
 					<?php endforeach;?>

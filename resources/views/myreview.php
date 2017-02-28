@@ -27,7 +27,7 @@
 		<?=$data->content?>
 		</td>
 		<td class="ta_c">
-			<button type="button" onclick="iModifyReview(<?=$data->idx?>);">수정</button>
+			<button type="button" class="tw_btn64" onclick="iModifyReview(<?=$data->idx?>);">수정</button>
 			<!-- button type="button" onclick="deleteReview();">삭제</button -->
 		</td>
 	</tr>

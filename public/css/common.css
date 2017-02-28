@@ -187,9 +187,11 @@ footer{
 .pd_a8{padding:8px}
 .pd_t8{padding-top:8px}
 .pd_b8{padding-bottom:8px}
+.pd_tb8{padding-top:8px;padding-bottom:8px}
 .pd_a16{padding:16px}
 .pd_t16{padding-top:16px}
 .pd_b16{padding-bottom:16px}
+.pd_tb16{padding-top:16px;padding-bottom:16px}
 .ta_l{text-align:left}
 .ta_c{text-align:center}
 .ta_r{text-align:right}

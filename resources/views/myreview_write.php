@@ -32,9 +32,9 @@
 		</td>
 		<td class="ta_c">
 		<?php if (!$is_modify) :?>
-			<button type="button" onclick="writeReview();">등록</button>
+			<button type="button" class="tw_btn64" onclick="writeReview();">등록</button>
 		<?php else :?>
-			<button type="button" onclick="modifyReview(<?=$data->idx?>);">등록</button>
+			<button type="button" class="tw_btn64" onclick="modifyReview(<?=$data->idx?>);">등록</button>
 		<?php endif;?>
 		</td>
 	</tr>
