@@ -36,7 +36,7 @@
 	border-radius: 16px;
 }
 
-#review_content{width:500px}
+#review_content{width:100%}
 
 .review_list table{border-bottom: 1px solid #CCCCCC}
 
@@ -63,15 +63,10 @@
 }
 
 .filebox label{
-	width: 96px;
-	height: 32px;
-	color: #FF9900;
-	background: #FFFFFF;
-	border: 1px solid #FF9900;
-	border-radius: 32px;
-	padding: 4px;
+	height: 24px;
 	vertical-align: middle;
 	text-align: center;
+	font-weight: normal;
 	cursor: pointer;
 }
 
@@ -81,7 +76,7 @@
 
 .filebox input[type="text"]{
 	width: 192px;
-	height: 32px;
+	height: 24px;
 	background: #CFCFCF;
 	border: 1px solid #FF9900;
 	border-radius: 16px;
