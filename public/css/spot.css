@@ -6,12 +6,6 @@
 	padding: 8px;
 }
 
-.thumb-rating:after, .p-rating:after{
-	content: "";
-	display: block;
-	clear: both;
-}
-
 #spot_img{
 	width: 128px;
 	height: 128px;
@@ -27,6 +21,14 @@
 	width: 16px;
 	text-align: center;
 }
+
+.thumb-rating:after, .p-rating:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+
+.p-rating{width:192px}
 
 .review_wrap table{width:100%}
 .review_wrap table td{padding:8px}
