@@ -48,18 +48,24 @@
 							<div class="rating">
 								<div class="f_l">
 								<?php foreach($rating_kind as $i) :?>
-									<div class="pd_tb8"><i class="fa <?=$i->fa_name?>" aria-hidden="true"></i></div>
+									<div class="pd_tb8">
+										<i class="fa <?=$i->fa_name?>" aria-hidden="true"></i>
+									</div>
 								<?php endforeach;?>
 								</div>
 								<div class="f_l ta_c">
 								<?php foreach($rating_kind as $i) :?>
-									<div class="pd_a8"><?=$i->name?></div>
+									<div class="pd_a8">
+										<?=$i->name?>
+									</div>
 								<?php endforeach;?>
 								</div>
 								<div class="f_l">
 								<?php foreach($rating_kind as $i) :?>
 									<?php $iter = 'rating_'.$i->eng_name;?>
-									<div class="pd_tb8">:&nbsp;<?=sprintf("%.2f",$data->$iter)?></div>
+									<div class="pd_tb8">
+										:&nbsp;<?=sprintf("%.2f",$data->$iter)?>
+									</div>
 								<?php endforeach;?>
 								</div>
 							</div>
@@ -85,37 +91,57 @@
 							<?php foreach ($review as $idx => $i) :?>
 								<table>
 									<tr>
-										<td width="175px" rowspan="3">
+										<td class="ta_c">
 											<img src="<?=$adr_s3?>profile/<?=$i->p_img?>" height="50" width="50"/>
 											<br/>
 											<a onclick=""><?=$i->nickname?></a>
 										</td>
-										<td width="550px">
-										<?php foreach ($rating_kind as $j) :?>
-											<?php $iter = 'rating_'.$j->eng_name;?>
-											<?=$j->name?>
-											<?php for ($k = 1; $k <= 5; ++$k) :?>
-												<?php echo ($i->$iter >= $k)? '★': '☆';?>
-											<?php endfor;?>
-										<?php endforeach;?>
-										</td>
-										<td class="ta_c">
-											<?=$i->lastdate?>
+										<td rowspan="2">
+											<div class="mg_b16">
+												<p>
+													<?=$i->content?>
+												</p>
+												<p class="ta_r tw_colorg">
+													<?=$i->lastdate?>
+												</p>
+											</div>
+											<div>
+											<?php foreach ($review_img[$idx] as $j) :?>
+												<div class="review_img">
+													<img src="<?=$adr_s3?>review/<?=$j?>"/>
+												</div>
+											<?php endforeach;?>
+											</div>
 										</td>
 									</tr>
 									<tr>
 										<td>
-										<?=$i->content?>
-										</td>
-										<td></td>
-									</tr>
-									<tr>
-										<td colspan="2">
-										<?php foreach ($review_img[$idx] as $j) :?>
-											<div class="review_img">
-												<img src="<?=$adr_s3?>review/<?=$j?>"/>
+											<div class="p-rating">
+												<div class="f_l">
+												<?php foreach($rating_kind as $j) :?>
+													<div class="pd_tb8">
+														<i class="fa <?=$j->fa_name?>" aria-hidden="true"></i>
+													</div>
+												<?php endforeach;?>
+												</div>
+												<div class="f_l ta_c">
+												<?php foreach($rating_kind as $j) :?>
+													<div class="pd_a8">
+														<?=$j->name?>
+													</div>
+												<?php endforeach;?>
+												</div>
+												<div class="f_l">
+												<?php foreach($rating_kind as $j) :?>
+													<?php $iter = 'rating_'.$j->eng_name;?>
+													<div class="pd_tb8">
+													<?php for ($k = 1; $k <= 5; ++$k) :?>
+														<?php echo ($i->$iter >= $k)? '★': '☆';?>
+													<?php endfor;?>
+													</div>
+												<?php endforeach;?>
+												</div>
 											</div>
-										<?php endforeach;?>
 										</td>
 									</tr>
 								</table>

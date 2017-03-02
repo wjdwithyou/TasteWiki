@@ -196,7 +196,11 @@ footer{
 .ta_c{text-align:center}
 .ta_r{text-align:right}
 
-.tw_color1{color:#FF9900}
+.tw_color1{color:#F90}
+.tw_color2{color:#FF9}
+.tw_colorw{color:#FFF}
+.tw_colorg{color:#CCC}
+.tw_colorb{color:#000}
 .tw_btn48{padding:1px 4px;width:48px;color:#FF9900;background:#FFFFFF;border:1px solid #FF9900;border-radius:32px}
 .tw_btn64{padding:1px 4px;width:64px;color:#FF9900;background:#FFFFFF;border:1px solid #FF9900;border-radius:32px}
 .tw_btn80{padding:1px 4px;width:80px;color:#FF9900;background:#FFFFFF;border:1px solid #FF9900;border-radius:32px}
