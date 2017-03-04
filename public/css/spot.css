@@ -1,10 +1,12 @@
 .notice{
-	color: #FF9900;
-	background: #FFFFFF;
-	border: 1px solid #FF9900;
+	color: #F90;
+	background: #FFF;
+	border: 1px solid #F90;
 	border-radius: 8px;
 	padding: 8px;
 }
+
+hr{border-top:1px solid #CCC}
 
 #spot_img{
 	width: 128px;
@@ -22,32 +24,46 @@
 	text-align: center;
 }
 
-.thumb-rating:after, .p-rating:after{
+.thumb-rating:after, .p-rating:after, .review_first:after{
 	content: "";
 	display: block;
 	clear: both;
 }
 
-.p-rating{width:192px}
+.p-profile{
+	width: 50%;
+	float: left;
+	text-align: center;
+}
+
+.p-profile img{
+	width: 64px;
+	height: 64px;
+	margin-bottom: 8px;
+}
+
+.p-rating{
+	position: relative;
+}
 
 .review_wrap table{width:100%}
 .review_wrap table td{padding:8px}
 
 #my_review{
-	border: 2px solid #FF9900;
+	border: 2px solid #F90;
 	border-radius: 16px;
 }
 
 #review_content{width:100%}
 
-.review_list table{border-bottom: 1px solid #CCCCCC}
+.review_list table{border-bottom: 1px solid #CCC}
 
 .review_img{
 	display: inline-block;
 	width: 96px;
     height: 96px;
-    background: #FFFFFF;
-    border: 1px solid #FF9900;
+    background: #FFF;
+    border: 1px solid #F90;
     border-radius: 8px;
     padding: 2px;
 }
@@ -80,7 +96,7 @@
 	width: 192px;
 	height: 24px;
 	background: #CFCFCF;
-	border: 1px solid #FF9900;
+	border: 1px solid #F90;
 	border-radius: 16px;
 	padding: 4px;
 	vertical-align: middle;
@@ -94,8 +110,8 @@
 	display: inline-block;
 	width: 64px;
 	height: 64px;
-	background: #FFFFFF;
-	border: 1px solid #FF9900;
+	background: #FFF;
+	border: 1px solid #F90;
 	border-radius: 4px;
 	padding: 2px;
 	vertical-align: middle;
@@ -107,7 +123,7 @@
 	border-radius: 4px;
 }
 
-@media(min-width: 768px){
+@media(min-width: 769px){
 	.filebox .upload_display{
 		display: inline-block;
 		margin-right: 4px;
@@ -115,10 +131,18 @@
 	}
 }
 
-@media(max-width: 767px){
+@media(max-width: 768px){
 	.filebox .upload_display{
 		display: block;
 		margin-right: 0;
 		margin-bottom: 4px;
 	}
+}
+
+@media(min-width: 421px) {
+	.review_list{padding:16px}
+}
+
+@media(max-width: 420px) {
+	.review_list{padding:0px}
 }

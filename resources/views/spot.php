@@ -84,68 +84,60 @@
 					</div>
 					<?php if (!$is_history) :?>
 						<div class="review_wrap">
-							<hr/>
 							<div id="my_review" class="pd_a16"></div>
-							<hr/>
-							<div class="review_list pd_a16">
+							<div class="review_list">
 							<?php foreach ($review as $idx => $i) :?>
-								<table>
-									<tr>
-										<td class="ta_c">
-											<img src="<?=$adr_s3?>profile/<?=$i->p_img?>" height="50" width="50"/>
+								<div class="pd_tb16">
+									<div class="review_first mg_b16">
+										<div class="p-profile">
+											<img src="<?=$adr_s3?>profile/<?=$i->p_img?>"/>
 											<br/>
 											<a onclick=""><?=$i->nickname?></a>
-										</td>
-										<td rowspan="2">
-											<div class="mg_b16">
-												<p>
-													<?=$i->content?>
-												</p>
-												<p class="ta_r tw_colorg">
-													<?=$i->lastdate?>
-												</p>
-											</div>
-											<div>
-											<?php foreach ($review_img[$idx] as $j) :?>
-												<div class="review_img">
-													<img src="<?=$adr_s3?>review/<?=$j?>"/>
+										</div>
+										<div class="p-rating f_l">
+											<div class="f_l">
+											<?php foreach($rating_kind as $j) :?>
+												<div class="pd_tb4">
+													<i class="fa <?=$j->fa_name?>" aria-hidden="true"></i>
 												</div>
 											<?php endforeach;?>
 											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="p-rating">
-												<div class="f_l">
-												<?php foreach($rating_kind as $j) :?>
-													<div class="pd_tb8">
-														<i class="fa <?=$j->fa_name?>" aria-hidden="true"></i>
-													</div>
-												<?php endforeach;?>
+											<div class="f_l ta_c">
+											<?php foreach($rating_kind as $j) :?>
+												<div class="pd_a4">
+													<?=$j->name?>
 												</div>
-												<div class="f_l ta_c">
-												<?php foreach($rating_kind as $j) :?>
-													<div class="pd_a8">
-														<?=$j->name?>
-													</div>
-												<?php endforeach;?>
-												</div>
-												<div class="f_l">
-												<?php foreach($rating_kind as $j) :?>
-													<?php $iter = 'rating_'.$j->eng_name;?>
-													<div class="pd_tb8">
-													<?php for ($k = 1; $k <= 5; ++$k) :?>
-														<?php echo ($i->$iter >= $k)? '★': '☆';?>
-													<?php endfor;?>
-													</div>
-												<?php endforeach;?>
-												</div>
+											<?php endforeach;?>
 											</div>
-										</td>
-									</tr>
-								</table>
-								<br/>
+											<div class="f_l">
+											<?php foreach($rating_kind as $j) :?>
+												<?php $iter = 'rating_'.$j->eng_name;?>
+												<div class="pd_tb4">
+												<?php for ($k = 1; $k <= 5; ++$k) :?>
+													<?php echo ($i->$iter >= $k)? '★': '☆';?>
+												<?php endfor;?>
+												</div>
+											<?php endforeach;?>
+											</div>
+										</div>
+									</div>
+									<div class="review_second mg_b16">
+										<p>
+											<?=$i->content?>
+										</p>
+										<p class="tw_colorg">
+											<?=$i->lastdate?>
+										</p>
+									</div>
+									<div class="review_third">
+									<?php foreach ($review_img[$idx] as $j) :?>
+										<div class="review_img">
+											<img src="<?=$adr_s3?>review/<?=$j?>"/>
+										</div>
+									<?php endforeach;?>
+									</div>
+								</div>
+								<hr/>
 							<?php endforeach;?>
 							</div>
 						</div>

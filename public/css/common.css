@@ -37,7 +37,6 @@ input[type=text], input[type=password], select{height:24px}
 .content{
 	width: 100%;
 	background: #FFFF99;
-	padding: 32px;
 }
 
 
@@ -184,6 +183,10 @@ footer{
 .mg_t16{margin-top:16px}
 .mg_b16{margin-bottom:16px}
 .mg_tb16{margin-top:16px;margin-bottom:16px}
+.pd_a4{padding:4px}
+.pd_t4{padding-top:4px}
+.pd_b4{padding-bottom:4px}
+.pd_tb4{padding-top:4px;padding-bottom:4px}
 .pd_a8{padding:8px}
 .pd_t8{padding-top:8px}
 .pd_b8{padding-bottom:8px}
@@ -220,8 +223,10 @@ footer{
 
 @media(min-width: 421px){
 	.m_header{display:none}
+	.content{padding:32px}
 }
 
 @media(max-width: 420px){
 	.pc_header{display:none}
+	.content{padding:16px}
 }

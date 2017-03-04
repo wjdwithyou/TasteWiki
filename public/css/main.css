@@ -7,14 +7,14 @@
 
 html,body,.wrap,.contents,.content,#map_canvas{height:100%}
 
-nav, aside{display: none;}
+nav, aside{display:none}
 
 .contents{
 	display: flex;
 	flex-direction: row;
 }
 
-.content{padding: 0}
+.content{padding:0}
 
 #map_canvas{
 	height: 100%;
