@@ -3,12 +3,12 @@ body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,table,th,td,form,fieldset,legend,inpu
 a{cursor:pointer}
 
 a, hover{
-	color: #000000;
+	color: #000;
 	text-decoration: none
 }
 
 a:hover, a:focus {
-    color: #000000;
+    color: #000;
     text-decoration: none
 }
 
@@ -18,7 +18,7 @@ h1{
 	font-weight:bold;
 }
 
-input, select{border:1px solid #FF9900}
+input, select{border:1px solid #F90}
 
 input[type=text], input[type=password], select{height:24px}
 
@@ -29,14 +29,12 @@ input[type=text], input[type=password], select{height:24px}
 	flex-direction: column;
 }
 
-.contents{
-	display: flex;
-	flex-direction: row;
-}
-
 .content{
+	max-width: 1024px;
 	width: 100%;
-	background: #FFFF99;
+	height: 100%;
+	background: #FF9;
+	margin: auto;
 }
 
 
@@ -53,7 +51,7 @@ header{
 .logo_img{height:32px}
 
 .header_wrap{
-	background: #FF9900;
+	background: #F90;
 	padding: 0 11px;
 }
 
@@ -64,7 +62,7 @@ header{
 
 .header_wrap .menu a{
 	font-weight: bold;
-	color: #FFFF99;
+	color: #FF9;
 }
 
 .header_wrap .menu a .menu_item96{
@@ -74,8 +72,8 @@ header{
 }
 
 .header_wrap .menu a .menu_item96:hover{
-	background: #FFFF99;
-	color: #FF9900;
+	background: #FF9;
+	color: #F90;
 }
 
 .header_wrap .menu a .menu_item40{
@@ -85,13 +83,13 @@ header{
 }
 
 .header_wrap .menu a .menu_item40:hover{
-	background: #FFFF99;
-	color: #FF9900;
+	background: #FF9;
+	color: #F90;
 }
 
 .header_wrap .menu a .fixed{
-	background: #FFFF99;
-	color: #FF9900;
+	background: #FF9;
+	color: #F90;
 }
 
 .header_wrap .menu a .menu_item40 img{border-radius:16px}
@@ -127,7 +125,7 @@ footer{
 	left: 150px;
 	width: 256px;
 	height: 128px;
-	border: 1px solid #FF9900;
+	border: 1px solid #F90;
 	background: white;
 	padding: 16px;
 	z-index: 10000;
@@ -145,7 +143,7 @@ footer{
 	right: 11px;
 	width: 128px;
 	height: auto;
-	border: 1px solid #FF9900;
+	border: 1px solid #F90;
 	background: white;
 	z-index: 10000;
 }
@@ -155,7 +153,7 @@ footer{
 }
 
 .dropdown_item:hover{
-	background: #FFFF99;
+	background: #FF9;
 }
 
 
@@ -204,9 +202,9 @@ footer{
 .tw_colorw{color:#FFF}
 .tw_colorg{color:#CCC}
 .tw_colorb{color:#000}
-.tw_btn48{padding:1px 4px;width:48px;color:#FF9900;background:#FFFFFF;border:1px solid #FF9900;border-radius:32px}
-.tw_btn64{padding:1px 4px;width:64px;color:#FF9900;background:#FFFFFF;border:1px solid #FF9900;border-radius:32px}
-.tw_btn80{padding:1px 4px;width:80px;color:#FF9900;background:#FFFFFF;border:1px solid #FF9900;border-radius:32px}
+.tw_btn48{padding:1px 4px;width:48px;color:#F90;background:#FFF;border:1px solid #F90;border-radius:32px}
+.tw_btn64{padding:1px 4px;width:64px;color:#F90;background:#FFF;border:1px solid #F90;border-radius:32px}
+.tw_btn80{padding:1px 4px;width:80px;color:#F90;background:#FFF;border:1px solid #F90;border-radius:32px}
 
 
 

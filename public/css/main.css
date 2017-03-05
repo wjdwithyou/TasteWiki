@@ -2,7 +2,7 @@
 
 /*
 	For use google map,
-	all the parents of #map_canvas should have 'height' properties.
+	all the parents of #map_canvas should have 'height' and 'width' properties.
 */
 
 html,body,.wrap,.contents,.content,#map_canvas{height:100%}
@@ -14,10 +14,12 @@ nav, aside{display:none}
 	flex-direction: row;
 }
 
-.content{padding:0}
+.content{
+	max-width: none;
+	padding: 0
+}
 
 #map_canvas{
-	height: 100%;
 	width: 100%;
 }
 

@@ -1,17 +1,32 @@
 <input type="hidden" id="cm_page_num" value="<?=$page_num?>"/>
-
-<table class="cm_list_table mg_b8">
+<div class="cm-list-inner">
 <?php foreach($result as $i) :?>
-	<tr class="cm_list_tr">
-		<td class="cm_list_td"><?=$i->idx?></td>
-		<td class="cm_list_title"><a class="<?php echo ($i->cate_idx == 1)? "fw_b tw_color1": "" ?>" onclick="openComm(<?=$i->idx?>);">[<?=$i->cate_name?>]&nbsp;<?=$i->title?></a>&nbsp;[<?=$i->reply_cnt?>]</td>
-		<td class="cm_list_td"><?=$i->nickname?></td>
-		<td class="cm_list_td"><?=$i->writedate?></td>
-		<td class="cm_list_td"><?=$i->hit_cnt?></td>
-	</tr>
-<?php endforeach;?>
-</table>
+	<div class="cm-list-pc">	<!-- pc -->
+		<div class="cm-list-first">
+			<div>
+				<?=$i->idx?>
+			</div>
+			<div class="mg_l8">
+				<a class="<?php echo ($i->cate_idx == 1)? "fw_b tw_color1": "" ?>" onclick="openComm(<?=$i->idx?>);">[<?=$i->cate_name?>]&nbsp;<?=$i->title?></a>&nbsp;[<?=$i->reply_cnt?>]</td>
+			</div>
+		</div>
+		<div class="cm-list-second">
+			<div>
+				<?=$i->nickname?>
+			</div>
+			<div>
+				<?=$i->writedate?>
+			</div>
+			<div>
+				<?=$i->hit_cnt?>
+			</div>
+		</div>
+	</div>
+	<div class="cm-list-mobile">	<!-- mobile -->
 
+	</div>
+<?php endforeach;?>
+</div>
 <div class="cm_pagination_wrap mg_b8">
 	<div class="cm_pagination ta_c">
 	<a onclick="getCommList(<?=$page_num - 1?>);">left</a>
