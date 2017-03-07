@@ -13,6 +13,7 @@
 .cm-list-inner{
 	width: 100%;
 	border-top: 1px solid #CCC;
+	padding-top: 4px;
 	margin-bottom: 8px;
 }
 
@@ -22,42 +23,59 @@
 	padding: 4px;
 }
 
+.cm-list-mobile{
+	width: 100%;
+	height: 48px;
+	border-bottom: 1px solid #CCC;
+	padding: 0;
+}
+
 .cm-list-first, .cm-list-second{
 	display: inline-block;
 	vertical-align: middle;
 }
 
-.cm-list-first{
-	float: left;
-}
+.cm-list-first{float:left}
 
-.cm-list-first > div{
+.cm-list-pc > .cm-list-first > div{
 	width: 384px;
 	display: inline-block;
 }
 
-.cm-list-first > div:first-child{
+.cm-list-pc > .cm-list-first > div:first-child{
 	width: 32px;
 	text-align: center;
 }
 
-.cm-list-second{
-	float: right;
-}
-
-.cm-list-second > div{
+.cm-list-pc > .cm-list-second > div{
 	display: inline-block;
 	width: 192px;
 	text-align: center;
 }
 
-.cm-list-second > div:last-child{
-	width: 32px;
+.cm-list-pc > .cm-list-second > div:last-child{width:32px}
+
+.cm-list-mob-title{
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
-.cm_list_title{
-	padding: 5px;
-	text-align: left;
+.cm-list-replycnt{
+	width: 32px;
+	height: 32px;
+	background: #FFF;
+	color:#F90;
+	border: 1px solid #F90;
+	border-radius: 8px;
+	margin-left: 16px;
+	margin-top: 4px;
+	margin-bottom: 12px;
+	padding-top: 4px;
+	text-align: center;
+	font-weight: bold;
+	float: right;
+	display: inline-block;
 }
 
 /*
@@ -77,10 +95,7 @@
 	height: 24px;
 }
 
-#cm_search_text{
-	width: 256px;
-	height: 24px;
-}
+#cm_search_text{height:24px}
 
 /*
 .cm_search_wrap{
@@ -89,9 +104,30 @@
 */
 
 @media screen and (min-width: 1025px){
-	/* implement */
+	.cm-list-pc{display:inline-block}
+	.cm-list-mobile{display:none}
+	.cm-list-first{width:auto}
+	.cm-list-second{float:right}
 }
 
 @media screen and (max-width: 1024px){
-	/* implement */
+	.cm-list-pc{display:none}
+	.cm-list-mobile{display:inline-block}
+	.cm-list-first{
+		width: calc(100% - 48px);
+		margin-bottom: 4px;
+	}
+	.cm-list-second{
+		float: left;
+		color: #CCC;
+		font-size: small;
+	}
+}
+
+@media screen and (min-width: 769px){
+	#cm_search_text{width:256px}
+}
+
+@media screen and (max-width: 768px){
+	#cm_search_text{width:128px}
 }

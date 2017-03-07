@@ -1,13 +1,13 @@
 <input type="hidden" id="cm_page_num" value="<?=$page_num?>"/>
 <div class="cm-list-inner">
 <?php foreach($result as $i) :?>
-	<div class="cm-list-pc">	<!-- pc -->
+	<div class="cm-list-pc">
 		<div class="cm-list-first">
 			<div>
 				<?=$i->idx?>
 			</div>
 			<div class="mg_l8">
-				<a class="<?php echo ($i->cate_idx == 1)? "fw_b tw_color1": "" ?>" onclick="openComm(<?=$i->idx?>);">[<?=$i->cate_name?>]&nbsp;<?=$i->title?></a>&nbsp;[<?=$i->reply_cnt?>]</td>
+				<a class="<?php echo ($i->cate_idx == 1)? "fw_b": "" ?>" onclick="openComm(<?=$i->idx?>);">[<?=$i->cate_name?>]&nbsp;<?=$i->title?></a>&nbsp;[<?=$i->reply_cnt?>]
 			</div>
 		</div>
 		<div class="cm-list-second">
@@ -22,8 +22,22 @@
 			</div>
 		</div>
 	</div>
-	<div class="cm-list-mobile">	<!-- mobile -->
-
+	<div class="cm-list-mobile">
+		<div class="cm-list-first">
+			<div class="cm-list-mob-title">
+				<a class="<?php echo ($i->cate_idx == 1)? "fw_b": "" ?>" onclick="openComm(<?=$i->idx?>);">[<?=$i->cate_name?>]&nbsp;<?=$i->title?></a>
+			</div>
+		</div>
+		<a onclick="openComm(<?=$i->idx?>);">
+			<div class="cm-list-replycnt">
+				<?=$i->reply_cnt?>
+			</div>
+		</a>
+		<div class="cm-list-second">
+			<div>
+				<?=$i->nickname?>&nbsp;|&nbsp;<?=$i->writedate?>&nbsp;|&nbsp;<?=$i->hit_cnt?>
+			</div>
+		</div>
 	</div>
 <?php endforeach;?>
 </div>
