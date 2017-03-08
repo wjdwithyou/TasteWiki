@@ -6,7 +6,7 @@
 	<body>
 		<div class="wrap">
 			<header>
-			<?php include ("header.php")?>
+			<?php include ("header.php");?>
 			</header>
 			<div class="contents">
 				<nav></nav>
@@ -164,7 +164,7 @@
 				<aside></aside>
 			</div>
 			<footer>
-			<?php include ("footer.php")?>
+			<?php include ("footer.php");?>
 			</footer>
 		</div>
 	</body>

@@ -127,7 +127,7 @@ class SpotModel{
 		foreach ($rating_kind as $i)
 			$query .= ', rating_'.$i->eng_name;
 
-		$result = DB::select('select idx, img'.$query.', name, content, lastdate, category_idx, hit_cnt from spot where is_cluster=0 and idx=?', array($spot_idx));
+		$result = DB::select('select idx, latitude, longitude, img'.$query.', name, content, lastdate, category_idx, hit_cnt from spot where is_cluster=0 and idx=?', array($spot_idx));
 
 		if (count($result) > 0)
 			return array('code' => 200, 'msg' => 'success', 'data' => $result[0]);
@@ -180,6 +180,16 @@ class SpotModel{
 		}
 
 		return array('code' => 200, 'msg' => 'success', 'data' => $result[0], 'num' => $img_num, 'prev_img' => $prev_img);
+	}
+
+	function getNearSpot($spot_idx, $lat, $lng) {
+		if ($_ = checkParam(func_get_args())) {
+			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		}
+
+		$result = DB::select('SELECT idx, img, name, 10000*SQRT(POW(latitude-?,2)+POW(longitude-?,2)) AS distance FROM spot WHERE idx!=? AND is_cluster!=1 HAVING distance<45 ORDER BY distance ASC LIMIT 4', array($lat, $lng, $spot_idx));
+
+		return array('code' => 200, 'msg' => 'success', 'data' => $result);
 	}
 
 	function checkExistSpot($spot_idx){
@@ -465,7 +475,7 @@ class SpotModel{
 		else
 			return array('code' => 0, 'msg' => 'failure: updateRating()');
 	}
-	
+
 	function getRatingList(){
 		$result = DB::select('select name, eng_name, fa_name from rating_kind');
 

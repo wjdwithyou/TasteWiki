@@ -316,9 +316,7 @@ class SpotController extends Controller{
 	}
 	*/
 
-	public function index(){
-		//header('Content-Type: application/json');
-
+	public function index() {
 		$spModel = new SpotModel();
 		$ctModel = new CategoryModel();
 
@@ -326,7 +324,7 @@ class SpotController extends Controller{
 
 		$result_getRatingList = $spModel->getRatingList();
 
-		if ($result_getRatingList['code'] == 500){
+		if ($result_getRatingList['code'] == 500) {
 			echo json_encode($result_getRatingList);
 			return;
 		}
@@ -335,32 +333,36 @@ class SpotController extends Controller{
 
 		$result_getSpotData = $spModel->getSpotData($spot_idx, $rating_kind);
 
-		if ($result_getSpotData['code'] != 200){
-			if ($result_getSpotData['code'] == 500)
+		if ($result_getSpotData['code'] != 200) {
+			if ($result_getSpotData['code'] == 500) {
 				echo json_encode(array('code' => 404, 'msg' => 'Page not found'));
-			else
+			} else {
 				echo json_encode($result_getSpotData);
+			}
 
 			return;
 		}
 
 		$data = $result_getSpotData['data'];
+		$nearSpotList = $spModel->getNearSpot($spot_idx, $data->latitude, $data->longitude);
 
-		if (isset($_SERVER['HTTP_REFERER']))
+		if (isset($_SERVER['HTTP_REFERER'])) {
 			$spModel->increaseHit($spot_idx);
+		}
 
 		$review = $spModel->getReviewList($spot_idx, $rating_kind)['data'];
 
 		$review_img = array();
 
-		for ($i = 0; $i < count($review); ++$i){
+		for ($i = 0; $i < count($review); ++$i) {
 			$temp = array();
 
-			for ($j = 0; $j < 3; ++$j){
+			for ($j = 0; $j < 3; ++$j) {
 				$iter = 'img'.$j;
 
-				if ($review[$i]->$iter == '')
+				if ($review[$i]->$iter == '') {
 					continue;
+				}
 
 				array_push($temp, $review[$i]->$iter);
 			}
@@ -373,7 +375,7 @@ class SpotController extends Controller{
 		$cate_arr = $this::getCateKorean($stack);
 
 		$page = 'spot';
-		
+
 		return view($page, array(
 				'page'			=> $page,
 				'data'			=> $data,
@@ -381,6 +383,7 @@ class SpotController extends Controller{
 				'review' 		=> $review,
 				'review_img'	=> $review_img,
 				'rating_kind'	=> $rating_kind,
+				'nearSpotList'	=> $nearSpotList,
 				'is_history'	=> false
 		));
 	}

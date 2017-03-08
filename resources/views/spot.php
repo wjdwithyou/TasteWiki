@@ -20,7 +20,7 @@
 	<body>
 		<div class="wrap">
 			<header>
-			<?php include ("header.php")?>
+			<?php include ("header.php");?>
 			</header>
 			<div class="contents">
 				<nav></nav>
@@ -141,12 +141,32 @@
 							<?php endforeach;?>
 							</div>
 						</div>
+						<div class="near-spot-list mg_t16">
+						<?php if ($nearSpotList['code'] != 200) :?>
+							/* error! */
+						<?php else :?>
+							<?php if (count($nearSpotList['data']) > 0) :?>
+								<div>
+									근처의 다른 Spot
+								</div>
+								<?php foreach ($nearSpotList['data'] as $i) :?>
+									<a href="<?=$adr_ctr?>Spot/index?idx=<?=$i->idx?>">
+										<div class="near-spot">
+											<img src="<?=$adr_s3?>spot/<?=$i->img?>"/>
+											<br/>
+											<?=$i->name?>
+										</div>
+									</a>
+								<?php endforeach;?>
+							<?php endif;?>
+						<?php endif;?>
+						</div>
 					<?php endif;?>
 				</div>
 				<aside></aside>
 			</div>
 			<footer>
-			<?php include ("footer.php")?>
+			<?php include ("footer.php");?>
 			</footer>
 		</div>
 	</body>
