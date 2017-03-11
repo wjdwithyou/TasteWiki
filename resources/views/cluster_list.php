@@ -5,7 +5,7 @@
 	</div>
 </div>
 <div class="popup_cluster_content">
-<?php if ($list['code'] == 0) :?>
+<?php if ($list['code'] == 500) :?>
 	empty cluster
 <?php else :?>
 	<table class="popup_cluster_table">
