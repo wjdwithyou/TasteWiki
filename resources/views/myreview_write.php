@@ -32,6 +32,7 @@
 			<div class="f_l">
 			<?php foreach($rating_kind as $i) :?>
 				<?php $iter = 'rating_'.$i->eng_name;?>
+				<input type="hidden" id="review_<?=$i->eng_name?>_num" value="<?php echo (!$is_modify)? 0: $data->$iter;?>"/>
 				<div class="pd_tb4">
 				<?php for ($j = 1; $j <= 5; ++$j) :?>
 					<a id="review_<?=$i->eng_name?>_star<?=$j?>" onclick="modifyStar('<?=$i->eng_name?>', <?=$j?>)"><?php echo (!$is_modify)? '☆': (($data->$iter < $j)? '☆': '★');?></a>
