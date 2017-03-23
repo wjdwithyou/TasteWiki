@@ -6,7 +6,7 @@ use App\Http\models\SpotModel;
 use App\Http\models\WishlistModel;
 use Request;
 
-class SpotController extends Controller{
+class SpotController extends Controller {
 	private function getCateKorean($stack){
 		$ctModel = new CategoryModel();
 

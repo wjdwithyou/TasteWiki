@@ -42,7 +42,7 @@ class MemberModel{
 			$date = date("YmdHis", time());
 			$ext = $img->getClientOriginalExtension();
 			
-			$img_name = $acc_idx."_".$date.".".$ext;			
+			$img_name = $acc_idx."_".$date.".".$ext;
 			
 			$s3->putObject(array(
 					'Bucket'		=> 'locawiki',
@@ -115,16 +115,18 @@ class MemberModel{
 			return array('code' => 250, 'msg' => 'exist nickname');
 	}
 	
-	function getIdxByEmail($email){
-		if ($_ = checkParam(func_get_args()))
+	function getIdxByEmail($email) {
+		if ($_ = checkParam(func_get_args())) {
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		}
 		
-		$result = DB::select('select idx from member where email=?', array($email));
+		$result = DB::select('SELECT idx FROM member WHERE email=?', array($email));
 		
-		if (count($result) > 0)
+		if (count($result) > 0) {
 			return array('code' => 200, 'msg' => 'exist', 'data' => $result[0]->idx);
-		else
+		} else {
 			return array('code' => 250, 'msg' => 'not exist');
+		}
 	}
 	
 	function update($acc_idx, $ad_chk, $pw, $nickname, $email, $name, $sex, $age, $img, $prev_img){
@@ -196,28 +198,32 @@ class MemberModel{
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
 	}
 	
-	function setVerifiedMail($acc_idx, $email){		// profile info
-		if ($_ = checkParam(func_get_args()))
+	function setVerifiedMail($acc_idx) {		// profile info
+		if ($_ = checkParam(func_get_args())) {
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		}
 		
-		$result = DB::update('UPDATE member SET email=?, email_chk=1, temp_code=NULL WHERE idx=?', array($email, $acc_idx));
+		$result = DB::update('UPDATE member SET email_chk=1 WHERE idx=?', array($acc_idx));
 		
-		if ($result == 1)
+		if ($result == 1) {
 			return array('code' => 200, 'msg' => 'success');
-		else
+		} else {
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
+		}
 	}
 	
-	function getVerifiedIdxByEmail($acc_idx, $email){
-		if ($_ = checkParam(func_get_args()))
+	function getVerifiedIdxByEmail($acc_idx, $email) {
+		if ($_ = checkParam(func_get_args())) {
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		}
 		
 		$result = DB::select('SELECT idx FROM email_verified WHERE account_idx=? AND email=?', array($acc_idx, $email));
 		
-		if (count($result) > 0)
+		if (count($result) > 0) {
 			return array('code' => 200, 'msg' => 'exist', 'data' => $result[0]->idx);
-		else
+		} else {
 			return array('code' => 250, 'msg' => 'not exist');
+		}
 	}
 	
 	function addVerifiedMail($acc_idx, $email){		// email_verified list
@@ -261,27 +267,31 @@ class MemberModel{
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
 	}
 	
-	function setTempCode($acc_idx, $code){
-		if ($_ = checkParam(func_get_args()))
+	function setTempCode($acc_idx, $code) {
+		if ($_ = checkParam(func_get_args())) {
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		}
 		
-		$result = DB::update('update member set temp_code=? where idx=?', array($code, $acc_idx));
+		$result = DB::update('UPDATE member SET temp_code=? WHERE idx=?', array($code, $acc_idx));
 		
-		if ($result == 1)
+		if ($result == 1) {
 			return array('code' => 200, 'msg' => 'success');
-		else
+		} else {
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
+		}
 	}
 	
-	function getTempCode($acc_idx){
-		if ($_ = checkParam(func_get_args()))
+	function getTempCode($acc_idx) {
+		if ($_ = checkParam(func_get_args())) {
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		}
 		
-		$result = DB::select('select temp_code from member where idx=?', array($acc_idx));
+		$result = DB::select('SELECT temp_code FROM member WHERE idx=?', array($acc_idx));
 		
-		if (count($result) > 0)
+		if (count($result) > 0) {
 			return array('code' => 200, 'msg' => 'success', 'data' => $result[0]->temp_code);
-		else
+		} else {
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
+		}
 	}
 }

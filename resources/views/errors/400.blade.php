@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>서비스 점검중입니다.</title>
+        <title>잘못된 접근입니다.</title>
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
         <style>
             html, body {
@@ -39,15 +39,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">서비스 <span class="tw_color1">점검중</span>입니다.</div>
-                <div>
-                	<p>
-                		<strong>- 점검 예정 일시: 2016년 12월 31일 09:00 ~ 12:00</strong>
-                	</p>
-                	<p>
-                		서비스 이용에 불편을 드려 대단히 죄송합니다.
-                	</p>
-                </div>
+                <div class="title">잘못된 접근입니다.</div>
             </div>
         </div>
     </body>
