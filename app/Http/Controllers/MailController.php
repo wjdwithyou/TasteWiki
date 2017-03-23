@@ -105,10 +105,7 @@ class MailController extends Controller {
         $email = Request::input('mail');
 		$code = Request::input('code');
         
-        // New
-        
-        // exception?
-        // email, code
+        // TODO: exception for email, code?
         
         $result_getIdxByEmail = $this::$mbModel->getIdxByEmail($email);
         
@@ -141,8 +138,7 @@ class MailController extends Controller {
         }
         // end additional process
         
-        //echo json_encode($result_setVerifiedMail);
-        $page = 'test';
+        $page = 'mail_verify_clear';
         return view($page, array('page' => $page));
 	}
     
