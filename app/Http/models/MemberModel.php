@@ -226,21 +226,24 @@ class MemberModel{
 		}
 	}
 	
-	function addVerifiedMail($acc_idx, $email){		// email_verified list
-		if ($_ = checkParam(func_get_args()))
+	function addVerifiedMail($acc_idx, $email) {		// email_verified list
+		if ($_ = checkParam(func_get_args())) {
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		}
 		
 		$idx = DB::table('email_verified')->insertGetId(
 				array(
 						'account_idx'	=> $acc_idx,
-						'email'			=> $email
+						'email'			=> $email,
+						'verifydate'	=> DB::raw('now()')
 				)
 		);
 		
-		if ($idx > 0)
+		if ($idx > 0) {
 			return array('code' => 200, 'msg' => 'success');
-		else
+		} else {
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
+		}
 	}
 	
 	function unsetVerifiedMail($acc_idx){
