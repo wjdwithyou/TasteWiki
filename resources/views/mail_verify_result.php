@@ -15,10 +15,14 @@
 						<h1>메일 인증 완료</h1>
 					</div>
 					<div class="core">
-						<p>
-							<?=$msg?>
-						</p>
-                        <button type="button" class="tw_btn48" onclick="location.href='https://www.tastewiki.xyz/Main/index'">확인</button>
+						<div class="ta_c">
+							<div class="mg_b16">
+								<?=$msg?>
+							</div>
+							<div>
+	                        	<button type="button" class="tw_btn48" onclick="location.href='https://www.tastewiki.xyz/Main/index'">확인</button>
+							</div>
+						</div>
 					</div>
 				</div>
 				<aside></aside>
