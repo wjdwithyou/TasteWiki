@@ -203,7 +203,7 @@ class MemberModel{
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
 		}
 		
-		$result = DB::update('UPDATE member SET email_chk=1 WHERE idx=?', array($acc_idx));
+		$result = DB::update('UPDATE member SET email_chk=1, temp_code=NULL WHERE idx=?', array($acc_idx));
 		
 		if ($result == 1) {
 			return array('code' => 200, 'msg' => 'success');
@@ -246,28 +246,32 @@ class MemberModel{
 		}
 	}
 	
-	function unsetVerifiedMail($acc_idx){
-		if ($_ = checkParam(func_get_args()))
+	function unsetVerifiedMail($acc_idx) {
+		if ($_ = checkParam(func_get_args())) {
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		}
 		
 		$result = DB::update('UPDATE member SET email_chk=0 WHERE idx=?', array($acc_idx));
 		
-		if ($result == 1)
+		if ($result == 1) {
 			return array('code' => 200, 'msg' => 'success');
-		else
+		} else {
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
+		}
 	}
 	
-	function getAccountInfo($acc_idx){
-		if ($_ = checkParam(func_get_args()))
+	function getAccountInfo($acc_idx) {
+		if ($_ = checkParam(func_get_args())) {
 			return array('code' => 400, 'msg' => 'invalid input at ['.--$_.'] in '.__FUNCTION__);
+		}
 		
-		$result = DB::select('select id, nickname, email, email_chk, name, img, sex, age, ad_chk from member where idx=?', array($acc_idx));
+		$result = DB::select('SELECT id, nickname, email, email_chk, name, img, sex, age, ad_chk FROM member WHERE idx=?', array($acc_idx));
 		
-		if (count($result) > 0)
+		if (count($result) > 0) {
 			return array('code' => 200, 'msg' => 'success', 'data' => $result[0]);
-		else
+		} else {
 			return array('code' => 500, 'msg' => 'failure in '.__FUNCTION__);
+		}
 	}
 	
 	function setTempCode($acc_idx, $code) {

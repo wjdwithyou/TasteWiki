@@ -15,9 +15,9 @@
 						<h1>메일 인증 완료</h1>
 					</div>
 					<div class="core">
-                        <p>
-                            메일 인증이 완료되었습니다.<br/>
-                        </p>
+						<p>
+							<?=$msg?>
+						</p>
                         <button type="button" class="tw_btn48" onclick="location.href='https://www.tastewiki.xyz/Main/index'">확인</button>
 					</div>
 				</div>

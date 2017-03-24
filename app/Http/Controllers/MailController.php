@@ -116,6 +116,18 @@ class MailController extends Controller {
         
         $acc_idx = $result_getIdxByEmail['data'];
         
+        $result_getAccountInfo = $this::$mbModel->getAccountInfo($acc_idx);
+        
+        if ($result_getAccountInfo['code'] != 200) {
+            echo json_encode($result_getAccountInfo);
+            return;
+        }
+        
+        if ($result_getAccountInfo['data']->email_chk == 1) {
+            $page = 'mail_verify_result';
+            return view($page, array('page' => $page, 'msg' => '이미 인증된 메일입니다.'));
+        }
+        
         $result_getTempCode = $this::$mbModel->getTempCode($acc_idx);
         
         if ($result_getTempCode['code'] != 200) {
@@ -138,8 +150,8 @@ class MailController extends Controller {
         }
         // end additional process
         
-        $page = 'mail_verify_clear';
-        return view($page, array('page' => $page));
+        $page = 'mail_verify_result';
+        return view($page, array('page' => $page, 'msg' => '메일 인증이 완료되었습니다.'));
 	}
     
     public function abandonVerify() {
